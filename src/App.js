@@ -62,11 +62,12 @@ function dealCards(player, deck, no){
 }
 var player1 = 1;
 var player2 = 2;
-var newDeck2 = dealCards(player1, deck, 6)
+var newDeck2 = dealCards(player1, deck, 6);
+console.log(newDeck2);
 
-console.log(newDeck2)
-// var deckAgain = dealCards(player2, newDeck2, 6)
-// console.log(deckAgain)
+// TypeError: Cannot read property 'length' of undefined (line 34, 57, 55)
+var newDeck3 = dealCards(player2, newDeck2, 6);
+console.log(newDeck3);
 
 class App extends Component {
   render() {
