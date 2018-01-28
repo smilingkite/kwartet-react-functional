@@ -26,6 +26,7 @@ function deckCards(deck = []){
 var deck = deckCards(deck)
 // console.log(deck)
 
+// leads to problems when called for second player
 const dealCard = (playerNo, deck) => {
   // deal a random card: assign one card to the player
   const deckNo = playerNo
@@ -45,7 +46,7 @@ const dealCard = (playerNo, deck) => {
   else dealCard(playerNo, deck)
 }
 
-
+// doesn't take conditions into account enough
 const moveCard = (deck, playerNo, cardNo, from) => {
   if (from === 0 ){
     deck[cardNo].deckNo = playerNo
@@ -53,6 +54,7 @@ const moveCard = (deck, playerNo, cardNo, from) => {
   return deck
 }
 
+// should use moveCard or dealCard
 function dealCards(player, deck, no){
   no--
   var newDeck
