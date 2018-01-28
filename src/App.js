@@ -26,47 +26,31 @@ function deckCards(deck = []){
 var deck = deckCards(deck)
 // console.log(deck)
 
-const dealCard = (playerNo, deck) => {
-  // deal a random card: assign one card to the player
-  const deckNo = playerNo
-  const random = Math.floor(Math.random() * deck.length)
-  if (deck[random].deckNo === 0){
-    return deck.map(card => {
-      if (card.deckNo === 0 && deck[random] === card) {
-        return {
-          ...card, 
-          deckNo
-        }
-      } else {
-        return {...card}
-      }
-    })
-  }
-  else dealCard(playerNo, deck)
+const moveCard = (deck, playerNo, cardNo) => {
+  deck[cardNo].deckNo = playerNo
+  return deck
 }
 
 function dealCards(player, deck, no){
-  // deal each user no-number cards
   no--
   var newDeck
+  const random = Math.floor(Math.random() * deck.length)
   if (no >= 0) {
-    newDeck = dealCard(player,deck)
-    // console.log(newDeck)
-    return dealCards(player,newDeck, no)
+    newDeck = moveCard(deck, player, random)
+    return dealCards(player, newDeck, no)
   } else {
-    // console.log(deck)
     return deck
   }
-};
+}
 
 const player1 = 1;
 const player2 = 2;
-const newDeck2 = dealCards(player1, deck, 6);
-console.log(newDeck2);
+const newDeck3 = dealCards(player1, deck, 6);
+console.log(newDeck3);
 
 // TypeError: Cannot read property 'length' of undefined (line 34, 57, 55)
-const newDeck3 = dealCards(player2, newDeck2, 6);
-console.log(newDeck3);
+const newDeck4 = dealCards(player2, dealCards(player1, deck, 6), 6);
+console.log(newDeck4);
 
 class App extends Component {
   render() {
