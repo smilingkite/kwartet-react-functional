@@ -44,18 +44,21 @@ const dealCard = (playerNo, deck) => {
     }
   })}
   else dealCard(playerNo, deck)
-
 }
-console.log(dealCard(1, deck))
+// console.log(dealCard(1, deck))
 
-// function dealCards(player1No, player2No, deck){
-//   // deal each user 6 cards
-//   for (let i=0; i < 6; i++){
-//     dealCard(player1No, deck)
-//     dealCard(player2No, deck)
-//   }
-// }
-// dealCards(player1, player2, deck)
+function dealCards(player, deck, no){
+  // deal each user no-number cards
+  no--
+  return (no > 0 ? {
+    newDeck = dealCard(player,deck),
+    dealCards(player,newDeck, no)
+  }: newDeck)
+  
+}
+var player1 = 1;
+var player2 = 2;
+console.log(dealCards(player1, deck, 6))
 
 class App extends Component {
   render() {
