@@ -33,19 +33,19 @@ const dealCard = (playerNo, deck) => {
   var deckNo = playerNo
   const random = Math.floor(Math.random() * deck.length)
   if (deck[random].deckNo === 0){
-  return deck.map(card => {
-    if (card.deckNo === 0 && deck[random] === card) {
-      return {
-        ...card, 
-        deckNo
+    return deck.map(card => {
+      if (card.deckNo === 0 && deck[random] === card) {
+        return {
+          ...card, 
+          deckNo
+        }
+      } else {
+        return {...card}
       }
-    } else {
-      return card
-    }
-  })}
+    })
+  }
   else dealCard(playerNo, deck)
 }
-// console.log(dealCard(1, deck))
 
 function dealCards(player, deck, no){
   // deal each user no-number cards
@@ -62,8 +62,12 @@ function dealCards(player, deck, no){
 }
 var player1 = 1;
 var player2 = 2;
-deck = dealCards(player1, deck, 6)
-console.log(deck)
+var newDeck2 = dealCards(player1, deck, 6)
+
+console.log(newDeck2)
+// var deckAgain = dealCards(player2, newDeck2, 6)
+// console.log(deckAgain)
+
 class App extends Component {
   render() {
     return (
