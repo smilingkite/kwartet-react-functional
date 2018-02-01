@@ -1,7 +1,8 @@
 import React, {
   Component
 } from 'react';
-import logo from './logo.svg';
+import PlayerComponent from './components/player';
+import Interface from './components/interface';
 import './App.css';
 
 function Card(letter, number, deckNo) {
@@ -87,19 +88,66 @@ selectTurn(player1, player2);
 console.table(selectHand(deck, playerTurnID))
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      deck: deck,
+      player1: player1,
+      player2: player2,
+      playerTurn: playerTurnID,
+      otherPlayer: otherPlayerID,
+      kaart: {},
+      validCard: true
+    };
+    // this.game = this.game.bind(this);
+    this.askedCard = this.askedCard.bind(this);
+  }
+
+  askedCard(card) {
+    // turns string answer into card object
+    card = card.toUpperCase();
+    let validCard = true;
+    const letterRegex = /[A-G]/;
+    const numberRegex = /[1-4]/;
+    try {
+      var letter = letterRegex.exec(card);
+      letter = letter[0];
+    } catch (e) {
+      console.log('Je gaf geen geldige letter op.');
+      validCard = false;
+    }
+    try {
+      var number = numberRegex.exec(card);
+      number = parseInt(number[0], 10);
+    } catch (e) {
+      console.log('Je gaf geen geldig nummer op.');
+      validCard = false;
+    }
+    const playerId = this.state.playerTurn.idNo;
+    const kaartuitvoer = new Card(letter, number, playerId);
+    console.log(kaartuitvoer);
+    this.setState({ kaart: kaartuitvoer});
+    this.setState({ validCard: validCard});
+    return ;
+  }
+
   render() {
+    const {askedCard} = this; // functions
+    const {otherPlayerID, playerTurnID, deck} = this.state; // values, vars, consts etc.
+
     return ( 
       <div className = "App" >
         <header className = "App-header" >
-          <img src = {logo}
-            className = "App-logo"
-            alt = "logo" 
-          />
-          <h1 className = "App-title" > Welcome to React </h1> 
+          <h1 className = "App-title" > Kwartet < /h1> 
         </header> 
-        <p className = "App-intro" >
-          To get started, edit < code > src / App.js < /code> and save to reload. 
-        </p> 
+
+        <Interface onNewCard={(askedCard)} />
+
+        <div className = "Game" > 
+          <PlayerComponent key={1} turn={true} {...playerTurn} />
+          <PlayerComponent key={2} turn={false} {...otherPlayer} />
+        </div> 
       </div>
     );
   }
