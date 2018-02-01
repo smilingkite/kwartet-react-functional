@@ -25,7 +25,7 @@ function deckCards(deck = []) {
   return deck
 }
 
-var deck = deckCards(deck)
+var deck = deckCards([])
 // console.log(deck)
 
 // leads to problems when called for second player
@@ -41,23 +41,11 @@ function dealCard (playerNo, deck) {
           deckNo
         }
       } else {
-        return { ...card
-        }
+        return { ...card }
       }
     })
-  } else dealCard(playerNo, deck)
+  } else return dealCard(playerNo, deck)
 }
-var changeOneCard = dealCard(1,deck)
-console.log(changeOneCard)
-var changeSecondCard = dealCard(2, changeOneCard)
-console.log(changeSecondCard)
-// doesn't take conditions into account enough
-// const moveCard = (deck, playerNo, cardNo, from) => {
-//   if (from === 0 ){
-//     deck[cardNo].deckNo = playerNo
-//   }
-//   return deck
-// }
 
 // should use moveCard or dealCard
 function dealCards(player, deck, no) {
@@ -72,40 +60,10 @@ function dealCards(player, deck, no) {
   }
 }
 
-// const player1 = 1;
-// const player2 = 2;
-// const newDeck3 = dealCards(player1, deck, 6);
-
-// console.log(newDeck3)
-
-// TypeError: Cannot read property 'length' of undefined (line 34, 57, 55)
-// const newDeck4 = dealCards(player2, newDeck3, 6);
-// console.log(newDeck4);
-
-
-// // doesn't take conditions into account enough
-// const moveCard = (deck, playerNo, cardNo, from) => {
-//   if (from === 0 ){
-//     deck[cardNo].deckNo = playerNo
-//   }
-//   return deck
-// }
-
-// // should use moveCard or dealCard
-// function dealCards(player, deck, no){
-//   no--
-//   var newDeck
-//   const from = 0
-//   const random = Math.floor(Math.random() * deck.length)
-//   if (deck[random].deckNo !== from) dealCards(player, deck, no)
-//   if (no >= 0) {
-//     newDeck = moveCard(deck, player, random, from)
-//     return dealCards(player, newDeck, no)
-//   } else {
-//     return deck
-//   }
-// }
-
+const player1 = 1;
+const player2 = 2;
+deck = dealCards(player2, dealCards(player1, deck, 6), 6);
+console.log(deck);
 
 class App extends Component {
   render() {
