@@ -82,6 +82,31 @@ function dealCards(player, deck, no) {
 // const newDeck4 = dealCards(player2, newDeck3, 6);
 // console.log(newDeck4);
 
+
+// // doesn't take conditions into account enough
+// const moveCard = (deck, playerNo, cardNo, from) => {
+//   if (from === 0 ){
+//     deck[cardNo].deckNo = playerNo
+//   }
+//   return deck
+// }
+
+// // should use moveCard or dealCard
+// function dealCards(player, deck, no){
+//   no--
+//   var newDeck
+//   const from = 0
+//   const random = Math.floor(Math.random() * deck.length)
+//   if (deck[random].deckNo !== from) dealCards(player, deck, no)
+//   if (no >= 0) {
+//     newDeck = moveCard(deck, player, random, from)
+//     return dealCards(player, newDeck, no)
+//   } else {
+//     return deck
+//   }
+// }
+
+
 class App extends Component {
   render() {
     return ( <
