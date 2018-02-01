@@ -48,7 +48,7 @@ const dealCard = (playerNo, deck) => {
 }
 
 // should use moveCard or dealCard
-function dealCards(player, deck, no) {
+const dealCards = (player, deck, no) => {
   no--
   var newDeck
   // const from = 0
@@ -74,7 +74,7 @@ console.table(selectHand(deck, player1.idNo))
 
 var playerTurnID
 var otherPlayerID
-function selectTurn(player1, player2) {
+const selectTurn = (player1, player2) => {
   if (Math.random() < 0.5) {
     playerTurnID = player1.idNo;
     otherPlayerID = player2.idNo;
