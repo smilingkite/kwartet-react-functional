@@ -1,8 +1,8 @@
 import React, {
   Component
 } from 'react';
-import PlayerComponent from './components/player';
-import Interface from './components/interface';
+import PlayerComponent from './components/Player';
+import Interface from './components/Interface';
 import './App.css';
 
 function Card(letter, number, deckNo) {
@@ -134,19 +134,19 @@ class App extends Component {
 
   render() {
     const {askedCard} = this; // functions
-    const {otherPlayerID, playerTurnID, deck} = this.state; // values, vars, consts etc.
-
+    const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
+    console.log(deck, playerTurn)
     return ( 
       <div className = "App" >
         <header className = "App-header" >
-          <h1 className = "App-title" > Kwartet < /h1> 
+          <h1 className = "App-title" > Kwartet </h1> 
         </header> 
 
         <Interface onNewCard={(askedCard)} />
 
         <div className = "Game" > 
-          <PlayerComponent key={1} turn={true} {...playerTurn} />
-          <PlayerComponent key={2} turn={false} {...otherPlayer} />
+          <PlayerComponent key={1} turn={true} hand ={selectHand(deck, playerTurn)} kwartet = {[]} name = {""}  />
+
         </div> 
       </div>
     );
