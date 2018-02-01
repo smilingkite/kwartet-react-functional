@@ -73,6 +73,11 @@ console.log(deck);
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 console.table(selectHand(deck, player1.idNo))
 
+const selectPlayerName = (playerIdNo) => {
+  if (playerIdNo === 1) return player1.name
+  else return player2.name
+}
+
 var playerTurnID
 var otherPlayerID
 const selectTurn = (player1, player2) => {
@@ -135,7 +140,7 @@ class App extends Component {
   render() {
     const {askedCard} = this; // functions
     const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
-    console.log(deck, playerTurn)
+
     return ( 
       <div className = "App" >
         <header className = "App-header" >
@@ -145,8 +150,8 @@ class App extends Component {
         <Interface onNewCard={(askedCard)} />
 
         <div className = "Game" > 
-          <PlayerComponent key={1} turn={true} hand ={selectHand(deck, playerTurn)} kwartet = {[]} name = {""}  />
-
+          <PlayerComponent key={1} turn={true} hand ={selectHand(deck, playerTurn)} kwartet = {[]} name = {selectPlayerName(playerTurn)}  />
+          <PlayerComponent key={2} turn={false} hand ={selectHand(deck, otherPlayer)} kwartet = {[]} name = {selectPlayerName(otherPlayer)}  />
         </div> 
       </div>
     );
