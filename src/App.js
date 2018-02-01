@@ -15,7 +15,7 @@ function Card(letter, number, deckNo) {
 }
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
 
-function deckCards(deck = []) {
+function deckCards(deck) {
   for (let i = 0; i < 7; i++) {
     for (let j = 1; j < 5; j++) {
       const card = new Card(letters[i], j, 0)
