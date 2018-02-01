@@ -29,7 +29,6 @@ function deckCards(deck) {
 var deck = deckCards([])
 // console.log(deck)
 
-// leads to problems when called for second player
 const dealCard = (playerNo, deck) => {
   // deal a random card: assign one card to the player
   const deckNo = playerNo
@@ -105,7 +104,7 @@ class App extends Component {
       kaart: {},
       validCard: true
     };
-    // this.game = this.game.bind(this);
+    this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
   }
 
@@ -129,16 +128,69 @@ class App extends Component {
       console.log('Je gaf geen geldig nummer op.');
       validCard = false;
     }
-    const playerId = this.state.playerTurn.idNo;
+    const playerId = this.state.playerTurn;
     const kaartuitvoer = new Card(letter, number, playerId);
     console.log(kaartuitvoer);
     this.setState({ kaart: kaartuitvoer});
     this.setState({ validCard: validCard});
     return ;
   }
+  changeHand() {
+
+    this.setState((prevState) => {
+      return {deck: dealCard(prevState.playerTurn, prevState.deck)};
+    });
+    // checkKwartet(playerTurn);
+    // const validCard = true;
+
+    // if (playerTurn === player1.idNo) {
+    //   playerTurn = player2.idNo;
+    //   otherPlayer = player1.idNo;
+    // }
+    // else {
+    //   playerTurn = player1;
+    //   otherPlayer = player2;
+    // }
+    // console.log('de beurt is gewisseld');
+    // this.setState(
+    //   {...this.state, 
+    //     playerTurn,
+    //     otherPlayer, 
+    //     validCard }
+    // );
+  }
+  game() {
+    function legitRequestedCard(card, player){
+      // checks whether card.letter appears in player.hand
+      // for (let c of player.hand) {
+      //   if (card.letter === c.letter){ 
+      //     return true;
+      //   }
+      // }
+      // return false;
+    }
+
+    function checkCardInHand(card, hand){
+      // checks whether card is in the hand of the otherPlayer.
+      // also takes the card out of the hand. 
+      // var letter = card.letter;
+      // var number = card.number;
+      
+      // for(let i = 0; i < hand.length; i++) {
+      //   if(hand[i].letter === letter && hand[i].number === number) {
+      //     hand.splice(i, 1);
+      //     return true;
+      //   }
+      // }
+      // return false;
+    }
+    // changeHand()
+  }
+
+
 
   render() {
-    const {askedCard} = this; // functions
+    const {askedCard, game} = this; // functions
     const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
 
     return ( 
@@ -147,7 +199,7 @@ class App extends Component {
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
 
-        <Interface onNewCard={(askedCard)} />
+        <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
           <PlayerComponent key={1} turn={true} hand ={selectHand(deck, playerTurn)} kwartet = {[]} name = {selectPlayerName(playerTurn)}  />
