@@ -29,7 +29,7 @@ var deck = deckCards([])
 // console.log(deck)
 
 // leads to problems when called for second player
-function dealCard (playerNo, deck) {
+const dealCard = (playerNo, deck) => {
   // deal a random card: assign one card to the player
   const deckNo = playerNo
   const random = Math.floor(Math.random() * deck.length)
@@ -70,7 +70,7 @@ deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 console.log(deck);
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-console.log(selectHand(deck, player1.idNo))
+console.table(selectHand(deck, player1.idNo))
 
 var playerTurnID
 var otherPlayerID
@@ -80,11 +80,11 @@ function selectTurn(player1, player2) {
     otherPlayerID = player2.idNo;
   } else {
     playerTurnID = player2.idNo;
-    otherPlayerID = player2.idNo;
+    otherPlayerID = player1.idNo;
   }
 }
 selectTurn(player1, player2);
-console.log(selectHand(deck, playerTurnID))
+console.table(selectHand(deck, playerTurnID))
 
 class App extends Component {
   render() {
