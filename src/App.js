@@ -60,13 +60,31 @@ function dealCards(player, deck, no) {
   }
 }
 
-const player1 = 1;
-const player2 = 2;
-deck = dealCards(player2, dealCards(player1, deck, 6), 6);
+const player1 = {}
+const player2 = {}
+player1.idNo = 1 ; 
+player1.name = 'Aafje';
+player2.idNo = 2 ; 
+player2.name = 'Ben';
+deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 console.log(deck);
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-console.log(selectHand(deck, player1))
+console.log(selectHand(deck, player1.idNo))
+
+var playerTurnID
+var otherPlayerID
+function selectTurn(player1, player2) {
+  if (Math.random() < 0.5) {
+    playerTurnID = player1.idNo;
+    otherPlayerID = player2.idNo;
+  } else {
+    playerTurnID = player2.idNo;
+    otherPlayerID = player2.idNo;
+  }
+}
+selectTurn(player1, player2);
+console.log(selectHand(deck, playerTurnID))
 
 class App extends Component {
   render() {
