@@ -65,6 +65,9 @@ const player2 = 2;
 deck = dealCards(player2, dealCards(player1, deck, 6), 6);
 console.log(deck);
 
+const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+console.log(selectHand(deck, player1))
+
 class App extends Component {
   render() {
     return ( 
