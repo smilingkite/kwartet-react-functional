@@ -67,10 +67,10 @@ player1.name = 'Aafje';
 player2.idNo = 2 ; 
 player2.name = 'Ben';
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
-console.log(deck);
+// console.log(deck);
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-console.table(selectHand(deck, player1.idNo))
+// console.table(selectHand(deck, player1.idNo))
 
 const selectPlayerName = (playerIdNo) => {
   if (playerIdNo === 1) return player1.name
@@ -89,7 +89,7 @@ const selectTurn = (player1, player2) => {
   }
 }
 selectTurn(player1, player2);
-console.table(selectHand(deck, playerTurnID))
+// console.table(selectHand(deck, playerTurnID))
 
 class App extends Component {
 
@@ -143,7 +143,7 @@ class App extends Component {
 
     // checkKwartet(playerTurn);
     const validCard = true;
-    // this.setState({validCard})
+
     let playerTurn = this.state.playerTurn;
     let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
@@ -169,14 +169,20 @@ class App extends Component {
     );
   }
   game(card) {
+    let playerTurn = this.state.playerTurn;
+    let otherPlayer = this.state.otherPlayer;
+    let player1 = this.state.player1.idNo;
+    let player2 = this.state.player2.idNo;
+    let deck = this.state.deck;
+
     function legitRequestedCard(card, player){
-      // checks whether card.letter appears in player.hand
-      // for (let c of player.hand) {
-      //   if (card.letter === c.letter){ 
-      //     return true;
-      //   }
-      // }
-      // return false;
+      // checks whether card.letter appears in the hand of the player
+      for (let c of selectHand(deck, player)) {
+        if (card.letter === c.letter){
+          return true;
+        }
+      }
+      return false;
     }
 
     function checkCardInHand(card, hand){
@@ -195,9 +201,9 @@ class App extends Component {
     }
     if (!this.state.validCard) {
       this.changeHand();    
-      console.log("change hand")
     } else {
       console.log("card correct")
+      if (legitRequestedCard(this.state.kaart, playerTurn)) {}
     }
     return card
   }
