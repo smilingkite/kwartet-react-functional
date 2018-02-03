@@ -131,35 +131,44 @@ class App extends Component {
     const playerId = this.state.playerTurn;
     const kaartuitvoer = new Card(letter, number, playerId);
     console.log(kaartuitvoer);
+
     this.setState({ kaart: kaartuitvoer});
     this.setState({ validCard: validCard});
     return ;
   }
   changeHand() {
+    // this.setState((prevState) => {
+    //   return {deck: dealCard(prevState.playerTurn, prevState.deck)};
+    // });
 
-    this.setState((prevState) => {
-      return {deck: dealCard(prevState.playerTurn, prevState.deck)};
-    });
     // checkKwartet(playerTurn);
-    // const validCard = true;
+    const validCard = true;
+    // this.setState({validCard})
+    let playerTurn = this.state.playerTurn;
+    let otherPlayer = this.state.otherPlayer;
+    let player1 = this.state.player1.idNo;
+    let player2 = this.state.player2.idNo;
 
-    // if (playerTurn === player1.idNo) {
-    //   playerTurn = player2.idNo;
-    //   otherPlayer = player1.idNo;
-    // }
-    // else {
-    //   playerTurn = player1;
-    //   otherPlayer = player2;
-    // }
-    // console.log('de beurt is gewisseld');
-    // this.setState(
-    //   {...this.state, 
-    //     playerTurn,
-    //     otherPlayer, 
-    //     validCard }
-    // );
+    let deck = dealCard(playerTurn, this.state.deck)
+    if (playerTurn === player1) {
+      playerTurn = player2;
+      otherPlayer = player1;
+    }
+    else {
+      playerTurn = player1;
+      otherPlayer = player2;
+    }
+    console.log('de beurt is gewisseld');
+    this.setState(
+      {...this.state, 
+        playerTurn,
+        otherPlayer, 
+        validCard, 
+        deck
+      }
+    );
   }
-  game() {
+  game(card) {
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in player.hand
       // for (let c of player.hand) {
@@ -184,7 +193,13 @@ class App extends Component {
       // }
       // return false;
     }
-    // changeHand()
+    if (!this.state.validCard) {
+      this.changeHand();    
+      console.log("change hand")
+    } else {
+      console.log("card correct")
+    }
+    return card
   }
 
 
