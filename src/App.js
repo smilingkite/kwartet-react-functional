@@ -7,7 +7,6 @@ import './App.css';
 
 // WIP:
 // 1) checkKwartet
-// 2) deal with no more cards in deck with deckNo == 0;
 
 function Card(letter, number, deckNo) {
   this.letter = letter
@@ -52,7 +51,7 @@ const dealCard = (playerNo, deck) => {
       }
     })
   } else if (selectHand(deck,0).length === 0) { 
-    console.log('de kaarten zijn op!');
+    console.log('!!!!!de kaarten zijn op!');
     return deck;
   } else return dealCard(playerNo, deck)
 }
@@ -77,9 +76,8 @@ player1.name = 'Aafje';
 player2.idNo = 2 ; 
 player2.name = 'Ben';
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
+// let kwartetList = [];
 // console.log(deck);
-
-
 
 const selectPlayerName = (playerIdNo) => {
   if (playerIdNo === 1) return player1.name
@@ -100,6 +98,44 @@ const selectTurn = (player1, player2) => {
 selectTurn(player1, player2);
 // console.table(selectHand(deck, playerTurnID))
 
+// function checkKwartet(player){
+//   // checks if there are four card objects in the hand with the same letter
+//   // if so > puts letter in kwartet array
+//   //       > and deletes those four card objects from hand. 
+//   var hand = selectHand(deck,player);
+//   let selectLetter = (hand, letterNo) => deck.filter(card => card.letter === letterNo);
+//   let kwartet = {};
+//   // voor elk van de waarden in letters, count number of objects.
+//   for (let i = 0; i < letters.length; i++){
+//     let letter = letters[i];
+//     // let counter = 0;
+//     if (selectLetter(hand,letter).length > 3) {
+//       kwartet.letter = letter;
+//       kwartet.playerIdNo = player;
+//       kwartetList.push(kwartet);
+//       console.log(kwartetList);
+//       // move all cards with this letter to stack 9;
+//     }
+
+//     // for(let j = 0; j < hand.length; j++) {
+//     //   if(hand[j].letter === letter) {
+//     //     counter++;
+//     //   }
+
+//     //   if (counter === 4) {
+//     //     console.log(`KWARTET, je hebt ${letter} compleet!`);
+//     //     player.kwartet.push(letter);
+//     //     // delete alle kaarten met die letter uit hand. 
+   
+//     //     let newHand = hand.filter(function (el) {
+//     //       return (el.letter !== letter);
+//     //     });
+//     //     player.hand = newHand;
+//     //   }
+//     // }
+//   }
+// }
+
 class App extends Component {
 
   constructor(props) {
@@ -111,7 +147,8 @@ class App extends Component {
       playerTurn: playerTurnID,
       otherPlayer: otherPlayerID,
       kaart: {},
-      validCard: true
+      validCard: true,
+      // kwartetList: kwartetList,
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -213,7 +250,9 @@ class App extends Component {
           // verander deckNo van die kaart in playerTurn.
           deck[cardIndex].deckNo = playerTurn;
         } else {
-          this.changeHand();
+          if (kaart.deckNo === playerTurn) {
+            this.changeHand();
+          }        
         }
       }
     }
