@@ -6,7 +6,9 @@ import Interface from './components/Interface';
 import './App.css';
 
 // WIP:
-// 1) checkKwartet
+// *) eindspel
+// 1) change turn automatically when no more cards in hand
+// 2) popover with result & no more input option 
 
 function Card(letter, number, deckNo) {
   this.letter = letter
