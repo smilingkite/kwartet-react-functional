@@ -262,10 +262,8 @@ class App extends Component {
           console.log('Goeie gok!');
           moveCard(kaart, deck, playerTurn);
         } else {
-          // if (kaart.deckNo === playerTurn) {
-            console.log('De ander heeft de kaart niet')
-            this.changeHand();
-          // }        
+          console.log('De ander heeft de kaart niet')
+          this.changeHand();      
         }
       }
     }
