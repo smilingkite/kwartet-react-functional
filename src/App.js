@@ -137,10 +137,6 @@ class App extends Component {
     return ;
   }
   changeHand() {
-    // this.setState((prevState) => {
-    //   return {deck: dealCard(prevState.playerTurn, prevState.deck)};
-    // });
-
     // checkKwartet(playerTurn);
     const validCard = true;
 
@@ -171,12 +167,12 @@ class App extends Component {
   game(card) {
     let playerTurn = this.state.playerTurn;
     let otherPlayer = this.state.otherPlayer;
-    let player1 = this.state.player1.idNo;
-    let player2 = this.state.player2.idNo;
     let deck = this.state.deck;
+    let kaart = this.state.kaart;
 
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in the hand of the player
+      console.log('Je mag deze kaart vragen.')
       for (let c of selectHand(deck, player)) {
         if (card.letter === c.letter){
           return true;
@@ -185,30 +181,35 @@ class App extends Component {
       return false;
     }
 
-    function checkCardInHand(card, hand){
-      // checks whether card is in the hand of the otherPlayer.
-      // also takes the card out of the hand. 
-      // var letter = card.letter;
-      // var number = card.number;
-      
-      // for(let i = 0; i < hand.length; i++) {
-      //   if(hand[i].letter === letter && hand[i].number === number) {
-      //     hand.splice(i, 1);
-      //     return true;
-      //   }
-      // }
-      // return false;
+    function checkCardInHand(card, deck){
+      var letter = card.letter;
+      var number = card.number;
+      for (let c of selectHand(deck, otherPlayer)) {
+        if (letter === c.letter && number === c.number){
+          console.log('Goeie gok!');
+          return true;
+        }
+      }
+      console.log('De ander heeft de kaart niet')
+      return false;
     }
     if (!this.state.validCard) {
       this.changeHand();    
     } else {
       console.log("card correct")
-      if (legitRequestedCard(this.state.kaart, playerTurn)) {}
+      if (legitRequestedCard(kaart, playerTurn)) {
+        if (checkCardInHand(kaart, deck)) {
+          // vindt kaart in deck
+          const cardIndex = (kaart.letter.charCodeAt(0)-65) * 4 - 1 + kaart.number
+          // verander deckNo van die kaart in playerTurn.
+          deck[cardIndex].deckNo = playerTurn;
+        } else {
+          this.changeHand();
+        }
+      }
     }
     return card
   }
-
-
 
   render() {
     const {askedCard, game} = this; // functions
