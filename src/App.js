@@ -5,6 +5,10 @@ import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
 
+// WIP:
+// 1) checkKwartet
+// 2) deal with no more cards in deck with deckNo == 0;
+
 function Card(letter, number, deckNo) {
   this.letter = letter
   this.number = number
