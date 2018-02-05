@@ -9,6 +9,8 @@ import './App.css';
 // *) eindspel
 // 1) change turn automatically when no more cards in hand
 // 2) popover with result & no more input option 
+// 3) styles keep working with large hands
+// 4) messages
 
 function Card(letter, number, deckNo) {
   this.letter = letter
