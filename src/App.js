@@ -33,6 +33,9 @@ function deckCards(deck) {
 var deck = deckCards([])
 // console.log(deck)
 
+const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+// console.table(selectHand(deck, player1.idNo))
+
 const dealCard = (playerNo, deck) => {
   // deal a random card: assign one card to the player
   const deckNo = playerNo
@@ -48,6 +51,9 @@ const dealCard = (playerNo, deck) => {
         return { ...card }
       }
     })
+  } else if (selectHand(deck,0).length === 0) { 
+    console.log('de kaarten zijn op!');
+    return deck;
   } else return dealCard(playerNo, deck)
 }
 
@@ -73,8 +79,7 @@ player2.name = 'Ben';
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 // console.log(deck);
 
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-// console.table(selectHand(deck, player1.idNo))
+
 
 const selectPlayerName = (playerIdNo) => {
   if (playerIdNo === 1) return player1.name
