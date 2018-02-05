@@ -25,7 +25,9 @@ class PlayerComponent extends React.Component{
               <ul className="kwartetten">
                 {
                   kwartet.map((kaart, i) =>
-                    <li key={i} className="kwartet">{kaart}</li>
+                    <li 
+                    key={i} 
+                    className="kwartet">{kaart.letter}</li>
                   )
                 }
               </ul>
