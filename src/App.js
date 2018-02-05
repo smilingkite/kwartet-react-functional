@@ -53,6 +53,12 @@ function moveCard(kaart, deck, playerId) {
   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
   // verander deckNo van die kaart in playerId.
   deck[cardIndex].deckNo = playerId;
+
+  // *** attempt at a more functional version of this function.
+  // var newDeck = deck.map(c => {
+  //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
+  // })
+  // return newDeck;
 }
 
 const dealCard = (playerNo, deck) => {
@@ -114,7 +120,6 @@ const selectTurn = (player1, player2) => {
   }
 }
 selectTurn(player1, player2);
-// console.table(selectHand(deck, playerTurnID))
 
 function checkKwartet(deck, kwartetList, player){
   // checks if there are four card objects in the hand with the same letter
@@ -132,7 +137,6 @@ function checkKwartet(deck, kwartetList, player){
       const cardIndex = (letter.charCodeAt(0) - 65);
       // verander deckNo van die kaart in playerTurn.
       kwartetList[cardIndex].deckNo = player;
-      console.table(kwartetList);
       // move all cards with this letter to stack 9;
       for (let i = 1; i < 5; i++){
         let kaart = {};
@@ -242,27 +246,30 @@ class App extends Component {
       var number = card.number;
       for (let c of selectHand(deck, otherPlayer)) {
         if (letter === c.letter && number === c.number){
-          console.log('Goeie gok!');
           return true;
         }
       }
-      console.log('De ander heeft de kaart niet')
       return false;
     }
-    if (!this.state.validCard) {
+
+    if (!this.state.validCard 
+      // || selectHand(deck, playerTurn).length === 0
+    ) {
       this.changeHand();    
     } else {
-      console.log("card correct")
-      if (legitRequestedCard(kaart, playerTurn)) {
+      if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
+          console.log('Goeie gok!');
           moveCard(kaart, deck, playerTurn);
         } else {
-          if (kaart.deckNo === playerTurn) {
+          // if (kaart.deckNo === playerTurn) {
+            console.log('De ander heeft de kaart niet')
             this.changeHand();
-          }        
+          // }        
         }
       }
     }
+
     return card
   }
 
