@@ -44,16 +44,15 @@ const makeKwartetList = (letters, kwartetList) => {
   return kwartetList
 }
 let kwartetList = makeKwartetList(letters, [])
-console.table(kwartetList)
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
 
-function moveCard(kaart, deck, playerTurn) {
+function moveCard(kaart, deck, playerId) {
   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
-  // verander deckNo van die kaart in playerTurn.
-  deck[cardIndex].deckNo = playerTurn;
+  // verander deckNo van die kaart in playerId.
+  deck[cardIndex].deckNo = playerId;
 }
 
 const dealCard = (playerNo, deck) => {
@@ -256,7 +255,6 @@ class App extends Component {
       console.log("card correct")
       if (legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
-          // vindt kaart in deck
           moveCard(kaart, deck, playerTurn);
         } else {
           if (kaart.deckNo === playerTurn) {
