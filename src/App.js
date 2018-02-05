@@ -30,10 +30,19 @@ function deckCards(deck) {
 }
 
 var deck = deckCards([])
+let kwartetList = [];
 // console.log(deck)
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 // console.table(selectHand(deck, player1.idNo))
+
+const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.playerIdNo === handNo )
+
+function moveCard(kaart, deck, playerTurn) {
+  const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
+  // verander deckNo van die kaart in playerTurn.
+  deck[cardIndex].deckNo = playerTurn;
+}
 
 const dealCard = (playerNo, deck) => {
   // deal a random card: assign one card to the player
@@ -76,7 +85,6 @@ player1.name = 'Aafje';
 player2.idNo = 2 ; 
 player2.name = 'Ben';
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
-// let kwartetList = [];
 // console.log(deck);
 
 const selectPlayerName = (playerIdNo) => {
@@ -98,43 +106,32 @@ const selectTurn = (player1, player2) => {
 selectTurn(player1, player2);
 // console.table(selectHand(deck, playerTurnID))
 
-// function checkKwartet(player){
-//   // checks if there are four card objects in the hand with the same letter
-//   // if so > puts letter in kwartet array
-//   //       > and deletes those four card objects from hand. 
-//   var hand = selectHand(deck,player);
-//   let selectLetter = (hand, letterNo) => deck.filter(card => card.letter === letterNo);
-//   let kwartet = {};
-//   // voor elk van de waarden in letters, count number of objects.
-//   for (let i = 0; i < letters.length; i++){
-//     let letter = letters[i];
-//     // let counter = 0;
-//     if (selectLetter(hand,letter).length > 3) {
-//       kwartet.letter = letter;
-//       kwartet.playerIdNo = player;
-//       kwartetList.push(kwartet);
-//       console.log(kwartetList);
-//       // move all cards with this letter to stack 9;
-//     }
-
-//     // for(let j = 0; j < hand.length; j++) {
-//     //   if(hand[j].letter === letter) {
-//     //     counter++;
-//     //   }
-
-//     //   if (counter === 4) {
-//     //     console.log(`KWARTET, je hebt ${letter} compleet!`);
-//     //     player.kwartet.push(letter);
-//     //     // delete alle kaarten met die letter uit hand. 
-   
-//     //     let newHand = hand.filter(function (el) {
-//     //       return (el.letter !== letter);
-//     //     });
-//     //     player.hand = newHand;
-//     //   }
-//     // }
-//   }
-// }
+function checkKwartet(deck, player){
+  // checks if there are four card objects in the hand with the same letter
+  // if so > puts letter in kwartet array
+  //       > and deletes those four card objects from hand. 
+  var hand = selectHand(deck,player);
+  let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
+  let kwartet = {};
+  // voor elk van de waarden in letters, count number of objects.
+  for (let i = 0; i < letters.length; i++){
+    let letter = letters[i];
+    if (selectLetter(hand,letter).length > 3) {
+      kwartet.letter = letter;
+      kwartet.playerIdNo = player;
+      kwartetList.push(kwartet);
+      console.table(kwartetList);
+      // move all cards with this letter to stack 9;
+      for (let i = 1; i < 5; i++){
+        let kaart = {};
+        kaart.letter = letter;
+        kaart.number = i;
+        moveCard(kaart, deck, 9);
+      }
+    }
+  }
+  return kwartetList;
+}
 
 class App extends Component {
 
@@ -148,7 +145,7 @@ class App extends Component {
       otherPlayer: otherPlayerID,
       kaart: {},
       validCard: true,
-      // kwartetList: kwartetList,
+      kwartetList: kwartetList
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -183,15 +180,15 @@ class App extends Component {
     return ;
   }
   changeHand() {
-    // checkKwartet(playerTurn);
     const validCard = true;
-
     let playerTurn = this.state.playerTurn;
     let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
     let player2 = this.state.player2.idNo;
-
     let deck = dealCard(playerTurn, this.state.deck)
+
+    kwartetList = checkKwartet(deck, playerTurn);
+
     if (playerTurn === player1) {
       playerTurn = player2;
       otherPlayer = player1;
@@ -206,7 +203,8 @@ class App extends Component {
         playerTurn,
         otherPlayer, 
         validCard, 
-        deck
+        deck, 
+        kwartetList
       }
     );
   }
@@ -246,9 +244,7 @@ class App extends Component {
       if (legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
           // vindt kaart in deck
-          const cardIndex = (kaart.letter.charCodeAt(0)-65) * 4 - 1 + kaart.number
-          // verander deckNo van die kaart in playerTurn.
-          deck[cardIndex].deckNo = playerTurn;
+          moveCard(kaart, deck, playerTurn);
         } else {
           if (kaart.deckNo === playerTurn) {
             this.changeHand();
@@ -272,8 +268,20 @@ class App extends Component {
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
-          <PlayerComponent key={1} turn={true} hand ={selectHand(deck, playerTurn)} kwartet = {[]} name = {selectPlayerName(playerTurn)}  />
-          <PlayerComponent key={2} turn={false} hand ={selectHand(deck, otherPlayer)} kwartet = {[]} name = {selectPlayerName(otherPlayer)}  />
+          <PlayerComponent 
+            key={1} 
+            turn={true} 
+            hand ={selectHand(deck, playerTurn)} 
+            kwartet = {selectKwartet(kwartetList, playerTurn)} 
+            name = {selectPlayerName(playerTurn)} 
+          />
+          <PlayerComponent 
+            key={2} 
+            turn={false} 
+            hand ={selectHand(deck, otherPlayer)} 
+            kwartet = {selectKwartet(kwartetList, otherPlayer)} 
+            name = {selectPlayerName(otherPlayer)} 
+          />
         </div> 
       </div>
     );
