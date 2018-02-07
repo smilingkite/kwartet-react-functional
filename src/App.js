@@ -75,6 +75,29 @@ const dealCard = (playerNo, deck) => {
   } else return dealCard(playerNo, deck)
 }
 
+const getCardFromPlayer = (deck) => {
+  console.log('in getCardFromPlayer')
+  const deckNo = 2
+  const random = Math.floor(Math.random() * deck.length)
+  if (deck[random].deckNo === 1) {
+    return deck.map(card => {
+      if (card.deckNo === 1 && deck[random] === card) {
+        console.log('de kaart gaat naar de hand van de computer')
+        return {
+          ...card,
+          deckNo
+        }
+      } else {
+        console.log('card not in your hand')
+        return { ...card }
+      }
+    })
+  } else if (selectHand(deck,1).length === 0) { 
+    console.log('!!!!!de kaarten zijn op!');
+    return deck;
+  } 
+}
+
 const dealCards = (player, deck, no) => {
   no--
   var newDeck
@@ -92,15 +115,15 @@ const selectPlayerName = (playerIdNo) => {
   else return player2.name
 }
 
-const selectTurn = (player1, player2) => {
-  if (Math.random() < 0.5) {
-    playerTurnID = player1.idNo;
-    otherPlayerID = player2.idNo;
-  } else {
-    playerTurnID = player2.idNo;
-    otherPlayerID = player1.idNo;
-  }
-}
+// const selectTurn = (player1, player2) => {
+//   if (Math.random() < 0.5) {
+//     playerTurnID = player1.idNo;
+//     otherPlayerID = player2.idNo;
+//   } else {
+//     playerTurnID = player2.idNo;
+//     otherPlayerID = player1.idNo;
+//   }
+// }
 
 function checkKwartet(deck, kwartetList, player){
   // checks if there are four card objects in the hand with the same letter
@@ -146,7 +169,11 @@ var playerTurnID
 var otherPlayerID
 
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
-selectTurn(player1, player2);
+// selectTurn(player1, player2);
+
+// the human player always starts!
+playerTurnID = 1;
+otherPlayerID = 2;
 
 class App extends Component {
 
@@ -251,9 +278,9 @@ class App extends Component {
       return false;
     }
 
-    if (!this.state.validCard 
-    ) {
-      this.changeHand();    
+    if (!this.state.validCard) {
+      this.changeHand(); 
+      // deck = getCardFromPlayer(deck)   
     } else {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
