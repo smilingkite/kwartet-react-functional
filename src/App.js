@@ -129,12 +129,13 @@ function checkKwartet(deck, kwartetList, player){
   }
   return kwartetList;
 }
+const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
 
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
 var deck = deckCards([])
 let kwartetList = makeKwartetList(letters, [])
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
+
 const player1 = {}
 const player2 = {}
 player1.idNo = 1 ; 
@@ -143,8 +144,8 @@ player2.idNo = 2 ;
 player2.name = 'Computer';
 var playerTurnID
 var otherPlayerID
-deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 
+deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 selectTurn(player1, player2);
 
 class App extends Component {
