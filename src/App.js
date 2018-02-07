@@ -12,7 +12,6 @@ import './App.css';
 //  2) popover with result & no more input option 
 // *) styles keep working with large hands
 // *) messages
-
 function Card(letter, number, deckNo) {
   this.letter = letter
   this.number = number
@@ -22,7 +21,6 @@ function Card(letter, number, deckNo) {
   // deckNo = 9 : card is in a kwartet (see kwartetList)
   this.deckNo = deckNo
 }
-
 function deckCards(deck) {
   for (let i = 0; i < 7; i++) {
     for (let j = 1; j < 5; j++) {
@@ -59,7 +57,6 @@ const dealCard = (playerNo, deck) => {
   const deckNo = playerNo
   const random = Math.floor(Math.random() * deck.length)
   if (deck[random].deckNo === 0) {
-    console.log('deal card from deck')
     return deck.map(card => {
       if (card.deckNo === 0 && deck[random] === card) {
         return {
@@ -71,7 +68,7 @@ const dealCard = (playerNo, deck) => {
       }
     })
   } else if (selectHand(deck,0).length === 0) { 
-    console.log('De kaarten zijn op!');
+    console.log('!!!!!de kaarten zijn op!');
     return deck;
   } else return dealCard(playerNo, deck)
 }
@@ -133,10 +130,13 @@ function checkKwartet(deck, kwartetList, player){
   //       > and deletes those four card objects from hand. 
   var hand = selectHand(deck,player);
   let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
-
+  // let kwartet = {};
+  // voor elk van de waarden in letters, count number of objects.
   for (let i = 0; i < letters.length; i++){
     let letter = letters[i];
     if (selectLetter(hand,letter).length > 3) {
+      // kwartet.letter = letter;
+      // kwartet.playerIdNo = player;
       const cardIndex = (letter.charCodeAt(0) - 65);
       // verander deckNo van die kaart in playerTurn.
       kwartetList[cardIndex].deckNo = player;
@@ -226,10 +226,10 @@ class App extends Component {
     let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
     let player2 = this.state.player2.idNo;
-    let deck = dealCard(1, this.state.deck);
-    
-    kwartetList = checkKwartet(deck, kwartetList, player1);
-    kwartetList = checkKwartet(deck, kwartetList, player2);
+    let deck = dealCard(playerTurn, this.state.deck)
+
+    kwartetList = checkKwartet(deck, kwartetList, playerTurn);
+
     if (playerTurn === player1) {
       playerTurn = player2;
       otherPlayer = player1;
@@ -237,7 +237,6 @@ class App extends Component {
     else {
       playerTurn = player1;
       otherPlayer = player2;
-      deck = getCardFromPlayer(deck)  
     }
     console.log('de beurt is gewisseld');
     this.setState(
@@ -278,18 +277,17 @@ class App extends Component {
       return false;
     }
 
-    if (!this.state.validCard) {
-      this.changeHand(); 
-      // deck = getCardFromPlayer(deck)   
+    if (!this.state.validCard 
+    ) {
+      this.changeHand();    
     } else {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
-          console.log('*** Goeie gok!');
+          console.log('Goeie gok!');
           moveCard(kaart, deck, playerTurn);
         } else {
-          console.log('*** De ander heeft de kaart niet')
-          this.changeHand();     
-          // deck = getCardFromPlayer(deck)   
+          console.log('De ander heeft de kaart niet')
+          this.changeHand();      
         }
       }
     }
@@ -319,7 +317,7 @@ class App extends Component {
           />
           <PlayerComponent 
             key={2} 
-            turn={true} 
+            turn={false} 
             hand ={selectHand(deck, otherPlayer)} 
             kwartet = {selectKwartet(kwartetList, otherPlayer)} 
             name = {selectPlayerName(otherPlayer)} 
