@@ -46,6 +46,7 @@ const makeKwartetList = (letters, kwartetList) => {
   }
   return kwartetList
 }
+
 function moveCard(kaart, deck, playerId) {
   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
   // verander deckNo van die kaart in playerId.
@@ -109,16 +110,13 @@ const selectTurn = (player1, player2) => {
 function checkKwartet(deck, kwartetList, player){
   // checks if there are four card objects in the hand with the same letter
   // if so > puts letter in kwartet array
-  //       > and deletes those four card objects from hand. 
+  //       > and moves those four card objects from hand to stack 9. 
   var hand = selectHand(deck,player);
   let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
-  // let kwartet = {};
   // voor elk van de waarden in letters, count number of objects.
   for (let i = 0; i < letters.length; i++){
     let letter = letters[i];
     if (selectLetter(hand,letter).length > 3) {
-      // kwartet.letter = letter;
-      // kwartet.playerIdNo = player;
       const cardIndex = (letter.charCodeAt(0) - 65);
       // verander deckNo van die kaart in playerTurn.
       kwartetList[cardIndex].deckNo = player;
@@ -133,9 +131,11 @@ function checkKwartet(deck, kwartetList, player){
   }
   return kwartetList;
 }
+
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
 
+// Setup game
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
 var deck = deckCards([])
 let kwartetList = makeKwartetList(letters, [])
@@ -171,7 +171,7 @@ class App extends Component {
   }
 
   askedCard(card) {
-    // turns string answer into card object
+    // turns string answer into card object > puts it into state.
     card = card.toUpperCase();
     let validCard = true;
     const letterRegex = /[A-G]/;
@@ -198,14 +198,17 @@ class App extends Component {
     this.setState({ validCard: validCard});
     return ;
   }
+
   changeHand() {
+    // Changes the turn & deals with all the logic that needs to happen when a turn is changed. 
+    // also sets state. 
     const validCard = true;
     let playerTurn = this.state.playerTurn;
     let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
     let player2 = this.state.player2.idNo;
-    let deck = dealCard(playerTurn, this.state.deck)
 
+    let deck = dealCard(playerTurn, this.state.deck)
     kwartetList = checkKwartet(deck, kwartetList, playerTurn);
 
     if (playerTurn === player1) {
@@ -236,7 +239,6 @@ class App extends Component {
 
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in the hand of the player
-
       for (let c of selectHand(deck, player)) {
         if (card.letter === c.letter){
           console.log('Je mag deze kaart vragen.')
@@ -258,8 +260,7 @@ class App extends Component {
       return false;
     }
 
-    if (!this.state.validCard 
-    ) {
+    if (!this.state.validCard) {
       this.changeHand();    
     } else {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
