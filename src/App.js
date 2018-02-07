@@ -6,6 +6,7 @@ import Interface from './components/Interface';
 import './App.css';
 
 // WIP:
+// *) Let computer handle player2
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
@@ -21,7 +22,6 @@ function Card(letter, number, deckNo) {
   // deckNo = 9 : card is in a kwartet (see kwartetList)
   this.deckNo = deckNo
 }
-const letters = ["A", "B", "C", "D", "E", "F", "G"]
 
 function deckCards(deck) {
   for (let i = 0; i < 7; i++) {
@@ -33,7 +33,6 @@ function deckCards(deck) {
   return deck
 }
 
-var deck = deckCards([])
 const makeKwartetList = (letters, kwartetList) => {
   for (let i=0; i<7; i++){
     const card = {};
@@ -43,12 +42,6 @@ const makeKwartetList = (letters, kwartetList) => {
   }
   return kwartetList
 }
-let kwartetList = makeKwartetList(letters, [])
-
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-
-const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
-
 function moveCard(kaart, deck, playerId) {
   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
   // verander deckNo van die kaart in playerId.
@@ -94,22 +87,11 @@ const dealCards = (player, deck, no) => {
   }
 }
 
-const player1 = {}
-const player2 = {}
-player1.idNo = 1 ; 
-player1.name = 'Aafje';
-player2.idNo = 2 ; 
-player2.name = 'Ben';
-deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
-// console.log(deck);
-
 const selectPlayerName = (playerIdNo) => {
   if (playerIdNo === 1) return player1.name
   else return player2.name
 }
 
-var playerTurnID
-var otherPlayerID
 const selectTurn = (player1, player2) => {
   if (Math.random() < 0.5) {
     playerTurnID = player1.idNo;
@@ -119,7 +101,6 @@ const selectTurn = (player1, player2) => {
     otherPlayerID = player1.idNo;
   }
 }
-selectTurn(player1, player2);
 
 function checkKwartet(deck, kwartetList, player){
   // checks if there are four card objects in the hand with the same letter
@@ -148,6 +129,23 @@ function checkKwartet(deck, kwartetList, player){
   }
   return kwartetList;
 }
+
+const letters = ["A", "B", "C", "D", "E", "F", "G"]
+var deck = deckCards([])
+let kwartetList = makeKwartetList(letters, [])
+const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
+const player1 = {}
+const player2 = {}
+player1.idNo = 1 ; 
+player1.name = 'Jij';
+player2.idNo = 2 ; 
+player2.name = 'Computer';
+var playerTurnID
+var otherPlayerID
+deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
+
+selectTurn(player1, player2);
 
 class App extends Component {
 
@@ -253,7 +251,6 @@ class App extends Component {
     }
 
     if (!this.state.validCard 
-      // || selectHand(deck, playerTurn).length === 0
     ) {
       this.changeHand();    
     } else {
