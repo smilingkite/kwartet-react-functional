@@ -59,6 +59,7 @@ const dealCard = (playerNo, deck) => {
   const deckNo = playerNo
   const random = Math.floor(Math.random() * deck.length)
   if (deck[random].deckNo === 0) {
+    console.log('deal card from deck')
     return deck.map(card => {
       if (card.deckNo === 0 && deck[random] === card) {
         return {
@@ -70,7 +71,7 @@ const dealCard = (playerNo, deck) => {
       }
     })
   } else if (selectHand(deck,0).length === 0) { 
-    console.log('!!!!!de kaarten zijn op!');
+    console.log('De kaarten zijn op!');
     return deck;
   } else return dealCard(playerNo, deck)
 }
@@ -82,20 +83,22 @@ const getCardFromPlayer = (deck) => {
   if (deck[random].deckNo === 1) {
     return deck.map(card => {
       if (card.deckNo === 1 && deck[random] === card) {
-        console.log('de kaart gaat naar de hand van de computer')
+        console.log('de kaart gaat naar de hand van de computer', card)
         return {
           ...card,
           deckNo
         }
       } else {
-        console.log('card not in your hand')
         return { ...card }
       }
     })
   } else if (selectHand(deck,1).length === 0) { 
-    console.log('!!!!!de kaarten zijn op!');
+    console.log('!!!!! Je kaarten zijn op!');
     return deck;
-  } 
+  } else { 
+    console.log('card not in your hand')
+    return dealCard(2, deck)
+  }
 }
 
 const dealCards = (player, deck, no) => {
@@ -223,27 +226,27 @@ class App extends Component {
   }
   changeHand() {
     const validCard = true;
-    let playerTurn = this.state.playerTurn;
-    let otherPlayer = this.state.otherPlayer;
+    // let playerTurn = this.state.playerTurn;
+    // let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
     let player2 = this.state.player2.idNo;
-    let deck = dealCard(playerTurn, this.state.deck)
-
-    kwartetList = checkKwartet(deck, kwartetList, playerTurn);
-
-    if (playerTurn === player1) {
-      playerTurn = player2;
-      otherPlayer = player1;
-    }
-    else {
-      playerTurn = player1;
-      otherPlayer = player2;
-    }
+    let deck = dealCard(1, this.state.deck);
+    deck = getCardFromPlayer(deck)  
+    kwartetList = checkKwartet(deck, kwartetList, player1);
+    kwartetList = checkKwartet(deck, kwartetList, player2);
+    // if (playerTurn === player1) {
+    //   playerTurn = player2;
+    //   otherPlayer = player1;
+    // }
+    // else {
+    //   playerTurn = player1;
+    //   otherPlayer = player2;
+    // }
     console.log('de beurt is gewisseld');
     this.setState(
       {...this.state, 
-        playerTurn,
-        otherPlayer, 
+        // playerTurn,
+        // otherPlayer, 
         validCard, 
         deck, 
         kwartetList
@@ -288,7 +291,8 @@ class App extends Component {
           moveCard(kaart, deck, playerTurn);
         } else {
           console.log('De ander heeft de kaart niet')
-          this.changeHand();      
+          this.changeHand();     
+          // deck = getCardFromPlayer(deck)   
         }
       }
     }
@@ -318,7 +322,7 @@ class App extends Component {
           />
           <PlayerComponent 
             key={2} 
-            turn={false} 
+            turn={true} 
             hand ={selectHand(deck, otherPlayer)} 
             kwartet = {selectKwartet(kwartetList, otherPlayer)} 
             name = {selectPlayerName(otherPlayer)} 
