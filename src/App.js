@@ -7,6 +7,10 @@ import './App.css';
 
 // WIP:
 // *) Let computer handle player2
+      // *) input field disappears
+      // *) random card gets selected by pc for computer-hand
+      // *) game logic works for this card as per usual
+      // *) when turn needs to change again: input field reappears & user can play as player1
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
@@ -223,6 +227,7 @@ class App extends Component {
       }
     );
   }
+
   game(card) {
     let playerTurn = this.state.playerTurn;
     let otherPlayer = this.state.otherPlayer;
@@ -238,7 +243,7 @@ class App extends Component {
           return true;
         }
       }
-      console.log('Je mage deze kaart niet vragen.')
+      console.log('Je mag deze kaart niet vragen.')
       return false;
     }
 
