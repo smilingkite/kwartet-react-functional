@@ -207,7 +207,7 @@ class App extends Component {
     let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
     let player2 = this.state.player2.idNo;
-
+    let kwartetList = this.state.kwartetList;
     let deck = dealCard(playerTurn, this.state.deck)
     kwartetList = checkKwartet(deck, kwartetList, playerTurn);
 
@@ -230,10 +230,32 @@ class App extends Component {
       }
     );
   }
+  
+  dealRequestCard(kaart, playerTurn, legitRequestedCard, checkCardInHand, deck) {
+    if (!this.state.validCard) {
+      this.changeHand();
+    }
+    else {
+      if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
+        if (checkCardInHand(kaart, deck)) {
+          console.log('Goeie gok!');
+          moveCard(kaart, deck, playerTurn);
+          kwartetList = checkKwartet(deck, kwartetList, playerTurn);
+        }
+        else {
+          console.log('De ander heeft de kaart niet');
+          this.changeHand();
+        }
+      }
+      else if (kaart.deckNo === playerTurn) {
+        this.changeHand();
+      }
+    }
+  }
 
   game(card) {
-    let playerTurn = this.state.playerTurn;
     let otherPlayer = this.state.otherPlayer;
+    let playerTurn = this.state.playerTurn;
     let deck = this.state.deck;
     let kaart = this.state.kaart;
 
@@ -259,23 +281,15 @@ class App extends Component {
       }
       return false;
     }
-
-    if (!this.state.validCard) {
-      this.changeHand();    
-    } else {
-      if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
-        if (checkCardInHand(kaart, deck)) {
-          console.log('Goeie gok!');
-          moveCard(kaart, deck, playerTurn);
-        } else {
-          console.log('De ander heeft de kaart niet')
-          this.changeHand();      
-        }
-      } else if (kaart.deckNo === playerTurn) {
-        this.changeHand();  
-      }
+    if (playerTurn === 1){
+      this.dealRequestCard(kaart, playerTurn, legitRequestedCard, checkCardInHand, deck);
+    } else if (playerTurn === 2) {
+      let kaartNo = Math.floor(Math.random() * deck.length)
+      let kaart = deck[kaartNo]
+      kaart.deckNo = 2
+      this.dealRequestCard(kaart, playerTurn, legitRequestedCard, checkCardInHand, deck);
     }
-
+    // console.log('game - card ', card)
     return card
   }
 
@@ -301,7 +315,7 @@ class App extends Component {
           />
           <PlayerComponent 
             key={2} 
-            turn={false} 
+            turn={true} 
             hand ={selectHand(deck, otherPlayer)} 
             kwartet = {selectKwartet(kwartetList, otherPlayer)} 
             name = {selectPlayerName(otherPlayer)} 
