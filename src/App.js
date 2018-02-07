@@ -231,12 +231,14 @@ class App extends Component {
 
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in the hand of the player
-      console.log('Je mag deze kaart vragen.')
+
       for (let c of selectHand(deck, player)) {
         if (card.letter === c.letter){
+          console.log('Je mag deze kaart vragen.')
           return true;
         }
       }
+      console.log('Je mage deze kaart niet vragen.')
       return false;
     }
 
@@ -263,6 +265,8 @@ class App extends Component {
           console.log('De ander heeft de kaart niet')
           this.changeHand();      
         }
+      } else if (kaart.deckNo === playerTurn) {
+        this.changeHand();  
       }
     }
 
