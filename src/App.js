@@ -46,7 +46,7 @@ function moveCard(kaart, deck, playerId) {
   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
   // verander deckNo van die kaart in playerId.
   deck[cardIndex].deckNo = playerId;
-
+  return deck;
   // *** attempt at a more functional version of this function.
   // var newDeck = deck.map(c => {
   //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
@@ -260,7 +260,7 @@ class App extends Component {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
           console.log('Goeie gok!');
-          moveCard(kaart, deck, playerTurn);
+          deck = moveCard(kaart, deck, playerTurn);
           kwartetList = checkKwartet(deck, kwartetList, playerTurn);
         } else {
           console.log('De ander heeft de kaart niet')
