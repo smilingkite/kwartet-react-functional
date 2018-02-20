@@ -34,8 +34,6 @@ class PlayerComponent extends React.Component{
             </div>
           }
         </div>
-        
-
       </div>
     );
   }
