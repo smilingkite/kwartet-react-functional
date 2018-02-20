@@ -4,6 +4,7 @@ import React, {
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
+import Messages from './data/messages'
 
 // WIP:
 // *) Let computer handle player2
@@ -160,7 +161,8 @@ class App extends Component {
       otherPlayer: otherPlayerID,
       kaart: {},
       validCard: true,
-      kwartetList: kwartetList
+      kwartetList: kwartetList,
+      Messages: Messages
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -276,14 +278,14 @@ class App extends Component {
 
   render() {
     const {askedCard, game} = this; // functions
-    const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
+    const {otherPlayer, playerTurn, deck, Messages} = this.state; // values, vars, consts etc.
 
     return ( 
       <div className = "App" >
         <header className = "App-header" >
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
-
+        <p className ="message">{Messages.beurt}</p>
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
