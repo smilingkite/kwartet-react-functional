@@ -7,7 +7,6 @@
 }
 
 .App-header {
-  flex: 1;
   background-color:  #232;
   padding: 1em;
   color:oldlace;
@@ -15,6 +14,11 @@
 
 .App-title {
   font-size: 1.5em;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
 }
 
 .speler {
@@ -25,7 +29,7 @@
   margin: 1em;
   padding: 1em;
   background: oldlace;
-  width: 45%;
+  min-width: 45%; 
   float: left;
 }
 
