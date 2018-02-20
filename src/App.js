@@ -47,7 +47,7 @@ function moveCard(kaart, deck, playerId) {
   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
   // verander deckNo van die kaart in playerId.
   deck[cardIndex].deckNo = playerId;
-
+  return deck;
   // *** attempt at a more functional version of this function.
   // var newDeck = deck.map(c => {
   //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
@@ -109,13 +109,10 @@ function checkKwartet(deck, kwartetList, player){
   //       > and deletes those four card objects from hand. 
   var hand = selectHand(deck,player);
   let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
-  // let kwartet = {};
   // voor elk van de waarden in letters, count number of objects.
   for (let i = 0; i < letters.length; i++){
     let letter = letters[i];
     if (selectLetter(hand,letter).length > 3) {
-      // kwartet.letter = letter;
-      // kwartet.playerIdNo = player;
       const cardIndex = (letter.charCodeAt(0) - 65);
       // verander deckNo van die kaart in playerTurn.
       kwartetList[cardIndex].deckNo = player;
@@ -149,8 +146,6 @@ var otherPlayerID
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 selectTurn(player1, player2);
 
-console.log(Messages.beurt)
-
 class App extends Component {
 
   constructor(props) {
@@ -169,6 +164,7 @@ class App extends Component {
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
+    this.changeHand = this.changeHand.bind(this);
   }
 
   askedCard(card) {
@@ -276,10 +272,15 @@ class App extends Component {
         if (checkCardInHand(kaart, deck)) {
           console.log('Goeie gok!');
           message = messages.goeieGok;
-          this.setState({message: message});
-          console.log(this.setState.message)
-          moveCard(kaart, deck, playerTurn);
+
+          // console.log(this.setState.message)
+          deck = moveCard(kaart, deck, playerTurn);
           kwartetList = checkKwartet(deck, kwartetList, playerTurn);
+          this.setState({
+            ...this.state,
+            deck,
+            kwartetList,
+            message});
         } else {
           console.log('De ander heeft de kaart niet')
           this.changeHand();      
