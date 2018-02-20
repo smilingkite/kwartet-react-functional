@@ -139,9 +139,9 @@ let kwartetList = makeKwartetList(letters, [])
 const player1 = {}
 const player2 = {}
 player1.idNo = 1 ; 
-player1.name = 'Jij';
+player1.name = 'Aafje';
 player2.idNo = 2 ; 
-player2.name = 'Computer';
+player2.name = 'Bennie';
 var playerTurnID
 var otherPlayerID
 
@@ -261,6 +261,7 @@ class App extends Component {
         if (checkCardInHand(kaart, deck)) {
           console.log('Goeie gok!');
           moveCard(kaart, deck, playerTurn);
+          kwartetList = checkKwartet(deck, kwartetList, playerTurn);
         } else {
           console.log('De ander heeft de kaart niet')
           this.changeHand();      
