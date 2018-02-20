@@ -164,6 +164,7 @@ class App extends Component {
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
+    this.changeHand = this.changeHand.bind(this);
   }
 
   askedCard(card) {
@@ -253,8 +254,7 @@ class App extends Component {
       return false;
     }
 
-    if (!this.state.validCard 
-    ) {
+    if (!this.state.validCard) {
       this.changeHand();    
     } else {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
