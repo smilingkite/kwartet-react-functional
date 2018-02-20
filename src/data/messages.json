@@ -1,15 +1,15 @@
-[
-  {"beurt" : "Jij bent aan de beurt, Geef letter en nummer van de kaart die je wilt vragen:" },
-  {"geenkaarten" : "Er zijn geen kaarten meer!"},
-  {"EndGame" : "Het spel is afgelopen!"},
-  {"gelijkspel" : "Gelijk spel!"},
-  {"winnaar" : "De winnaar is {winnaar.name} met {winnaar.kwartet.length} kwartetten."},
-  {"errorLetter": "Je gaf geen geldige letter op."},
-  {"errorNumber": "Je gaf geen nummer op."},
-  {"error": "Die kaart mag je niet vragen."},
-  {"beurtAnder": "De ander is aan de beurt."},
-  {"errorCard": "Je vraagt om een niet bestaande kaart!"},
-  {"kwartet": "KWARTET, je bet {letter} compleet!"},
-  {"goeieGok": "Goeie gok: ik heb de kaart {displayCardConsole(pickedCard)}!"},
-  {"trekKaart": "Je trok een kaart van de stapel, nu is de ander aan de beurt."}
-]
+{
+  "beurt" : "Jij bent aan de beurt, Geef letter en nummer van de kaart die je wilt vragen:" ,
+  "geenkaarten" : "Er zijn geen kaarten meer!",
+  "EndGame" : "Het spel is afgelopen!",
+  "gelijkspel" : "Gelijk spel!",
+  "winnaar" : "De winnaar is {winnaar.name} met {winnaar.kwartet.length} kwartetten.",
+  "errorLetter": "Je gaf geen geldige letter op.",
+  "errorNumber": "Je gaf geen nummer op.",
+  "error": "Die kaart mag je niet vragen.",
+  "beurtWissel": "De beurt is gewisseld.",
+  "errorCard": "Je vraagt om een niet bestaande kaart!",
+  "kwartet": "KWARTET, je bet {letter} compleet!",
+  "goeieGok": "Goeie gok: ik heb de kaart!",
+  "trekKaart": "Je trok een kaart van de stapel, nu is de ander aan de beurt."
+}

@@ -12,6 +12,11 @@
   color:oldlace;
 }
 
+.message {
+  color: oldlace;
+  padding: 0 1em ;
+}
+
 .App-title {
   font-size: 1.5em;
 }

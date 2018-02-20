@@ -4,6 +4,7 @@ import React, {
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
+import Messages from './data/messages'
 
 // WIP:
 // *) Let computer handle player2
@@ -148,6 +149,8 @@ var otherPlayerID
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 selectTurn(player1, player2);
 
+console.log(Messages.beurt)
+
 class App extends Component {
 
   constructor(props) {
@@ -160,7 +163,9 @@ class App extends Component {
       otherPlayer: otherPlayerID,
       kaart: {},
       validCard: true,
-      kwartetList: kwartetList
+      kwartetList: kwartetList,
+      messages: Messages,
+      message: Messages.beurt
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -184,6 +189,7 @@ class App extends Component {
       number = parseInt(number[0], 10);
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
+
       validCard = false;
     }
     const playerId = this.state.playerTurn;
@@ -200,7 +206,9 @@ class App extends Component {
     let otherPlayer = this.state.otherPlayer;
     let player1 = this.state.player1.idNo;
     let player2 = this.state.player2.idNo;
-    let deck = dealCard(playerTurn, this.state.deck)
+    let deck = dealCard(playerTurn, this.state.deck);
+    let messages = this.state.messages;
+    let message = this.state.message;
 
     kwartetList = checkKwartet(deck, kwartetList, playerTurn);
 
@@ -212,14 +220,17 @@ class App extends Component {
       playerTurn = player1;
       otherPlayer = player2;
     }
-    console.log('de beurt is gewisseld');
+
+    message = messages.beurtWissel;
+    console.log(message);
     this.setState(
       {...this.state, 
         playerTurn,
         otherPlayer, 
         validCard, 
         deck, 
-        kwartetList
+        kwartetList,
+        message
       }
     );
   }
@@ -228,6 +239,8 @@ class App extends Component {
     let otherPlayer = this.state.otherPlayer;
     let deck = this.state.deck;
     let kaart = this.state.kaart;
+    let messages = this.state.messages;
+    let message = this.state.message;
 
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in the hand of the player
@@ -235,10 +248,12 @@ class App extends Component {
       for (let c of selectHand(deck, player)) {
         if (card.letter === c.letter){
           console.log('Je mag deze kaart vragen.')
+
           return true;
         }
       }
-      console.log('Je mage deze kaart niet vragen.')
+      message = Messages.error;
+      console.log(message)
       return false;
     }
 
@@ -260,6 +275,9 @@ class App extends Component {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
           console.log('Goeie gok!');
+          message = messages.goeieGok;
+          this.setState({message: message});
+          console.log(this.setState.message)
           moveCard(kaart, deck, playerTurn);
           kwartetList = checkKwartet(deck, kwartetList, playerTurn);
         } else {
@@ -276,14 +294,14 @@ class App extends Component {
 
   render() {
     const {askedCard, game} = this; // functions
-    const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
+    const {otherPlayer, playerTurn, deck, message} = this.state; // values, vars, consts etc.
 
     return ( 
       <div className = "App" >
         <header className = "App-header" >
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
-
+        <p className ="message">{message}</p>
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
