@@ -1,13 +1,15 @@
+@import 'colors';
+
 .App, body {
-  background-color: #232;
+  background-color: $log-cabin;
   padding-bottom: 1em;
   height: 100vh; 
   display: flex;
   flex-direction: column;
   .App-header {
-    background-color:  #232;
+    background-color:  $log-cabin;
     padding: 1em;
-    color:oldlace;
+    color:$old-lace;
   }
   
   .App-title {
@@ -15,7 +17,7 @@
   }
   
   .message {
-    color: oldlace;
+    color: $old-lace;
     padding: 0 1em ;
     }
   
