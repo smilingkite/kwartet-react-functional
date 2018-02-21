@@ -23,22 +23,24 @@ ul.hand, ul.kwartetten {
   padding: 0;
   margin: 1em 0;
   min-height: 1em;
+
+  li.kaart, li.kwartet {
+    display: inline-block;
+    border: 2px solid #ff8080;
+    border-radius: 5px;
+    background:rgba(255, 128, 128, 0.1);
+    padding: 1em 10px;
+    margin-right: 3px;
+  }
 }
 
-li.kaart, li.kwartet {
-  display: inline-block;
-  border: 1px solid #ff8080;
-  background:rgba(255, 128, 128, 0.1);
-  padding: 1em;
-}
-
-.false li.kaart {
+.false .kaarten ul.hand li.kaart {
   color:rgba(0,0,0,0); 
-  background: repeating-linear-gradient(
-  45deg,
-  rgba(255, 128, 128, 0.2),
-  rgba(0, 0, 0, 0.2) 10px,
-  rgba(0, 0, 0, 0.3) 10px,
-  rgba(0, 0, 0, 0.3) 20px
-)
+    background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 128, 128, 0.2),
+    rgba(0, 0, 0, 0.2) 10px,
+    rgba(0, 0, 0, 0.3) 10px,
+    rgba(0, 0, 0, 0.4) 10px
+  )
 }
