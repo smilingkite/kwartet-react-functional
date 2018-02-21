@@ -4,27 +4,28 @@
   height: 100vh; 
   display: flex;
   flex-direction: column;
-}
-
-.App-header {
-  background-color:  #232;
-  padding: 1em;
-  color:oldlace;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.message {
-  color: oldlace;
-  padding: 0 1em ;
+  .App-header {
+    background-color:  #232;
+    padding: 1em;
+    color:oldlace;
   }
-
-.game {
-  display: flex;
-  flex-direction: row;
+  
+  .App-title {
+    font-size: 1.5em;
+  }
+  
+  .message {
+    color: oldlace;
+    padding: 0 1em ;
+    }
+  
+  .game {
+    display: flex;
+    flex-direction: row;
+  }
 }
+
+
 
 
 
