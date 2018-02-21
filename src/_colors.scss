@@ -1,6 +1,6 @@
 $log-cabin: #232;
 $old-lace: #fdf5e6;
 $vivid-tangerine: #ff8080; 
-$transparent-vivid-tangerine: rgba(255, 128, 128, 0.1);
+$transparent-vivid-tangerine: transparentize($vivid-tangerine, 0.7);
 $transparent: rgba(0,0,0,0); 
-$black: #000;
+$black: rgb(0,0,0) ;
