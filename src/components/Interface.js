@@ -1,3 +1,4 @@
+import './Interface.css';
 var React = require('react');
 
 const Interface = ({onNewCard=f=>f}) => {

@@ -1,3 +1,4 @@
+import './Player.css';
 var React = require('react');
 
 class PlayerComponent extends React.Component{
