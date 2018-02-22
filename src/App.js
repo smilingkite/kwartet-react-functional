@@ -1,10 +1,11 @@
 import React, {
-  Component
+  PureComponent
 } from 'react';
+import { connect } from 'react-redux'
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
-import Messages from './data/messages'
+
 
 // WIP:
 // *) Let computer handle player2
@@ -49,10 +50,11 @@ function moveCard(kaart, deck, playerId) {
   deck[cardIndex].deckNo = playerId;
   return deck;
   // *** attempt at a more functional version of this function.
-  // var newDeck = deck.map(c => {
+  // var deckNo = playerId
+  // deck = deck.map(c => {
   //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
   // })
-  // return newDeck;
+  // return deck;
 }
 
 const dealCard = (playerNo, deck) => {
@@ -149,7 +151,7 @@ var otherPlayerID
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 selectTurn(player1, player2);
 
-class App extends Component {
+class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -162,7 +164,7 @@ class App extends Component {
       kaart: {},
       validCard: true,
       kwartetList: kwartetList,
-      Messages: Messages
+      // Messages: messages
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -278,14 +280,14 @@ class App extends Component {
 
   render() {
     const {askedCard, game} = this; // functions
-    const {otherPlayer, playerTurn, deck, Messages} = this.state; // values, vars, consts etc.
-
+    const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
+    const {message} = this.props;
     return ( 
       <div className = "App" >
         <header className = "App-header" >
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
-        <p className ="message">{Messages.beurt}</p>
+        <p className = "message" >{message}</p>
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
@@ -308,5 +310,8 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = ({ message }) => ({
+  message
+})
 
-export default App;
+export default connect(mapStateToProps)(App);
