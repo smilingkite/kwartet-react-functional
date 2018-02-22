@@ -284,7 +284,6 @@ class App extends PureComponent {
         this.changeHand();  
       }
     }
-
     return card
   }
 
