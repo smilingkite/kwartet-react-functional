@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux'
 import { SELECT_MESSAGE } from './actions/selectMessage'
+// import { START_DEAL_CARDS } from './actions/startDealCards'
 import Card from './helpers/cardConstructor';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
@@ -268,20 +269,7 @@ class App extends PureComponent {
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
-          <PlayerComponent 
-            key={1} 
-            turn={true} 
-            hand ={selectHand(deck, playerTurn)} 
-            kwartet = {selectKwartet(kwartetList, playerTurn)} 
-            name = {selectPlayerName(playerTurn)} 
-          />
-          <PlayerComponent 
-            key={2} 
-            turn={false} 
-            hand ={selectHand(deck, otherPlayer)} 
-            kwartet = {selectKwartet(kwartetList, otherPlayer)} 
-            name = {selectPlayerName(otherPlayer)} 
-          />
+         
         </div> 
       </div>
     );
