@@ -2,12 +2,11 @@ import React, {
   PureComponent
 } from 'react';
 import { connect } from 'react-redux'
-import {SELECT_MESSAGE} from './actions/selectMessage'
-
+import { SELECT_MESSAGE } from './actions/selectMessage'
+import Card from './helpers/cardConstructor';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
-
 
 // WIP:
 // *) Let computer handle player2
@@ -15,27 +14,6 @@ import './App.css';
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
 // *) styles keep working with large hands
-// *) messages
-
-function Card(letter, number, deckNo) {
-  this.letter = letter
-  this.number = number
-  // deckNo = 0 : card is in the deck, can be dealt
-  // deckNo = 1 : card is in the hand of player 1
-  // deckNo = 2 : card is in the hand of player 2
-  // deckNo = 9 : card is in a kwartet (see kwartetList)
-  this.deckNo = deckNo
-}
-
-function deckCards(deck) {
-  for (let i = 0; i < 7; i++) {
-    for (let j = 1; j < 5; j++) {
-      const card = new Card(letters[i], j, 0)
-      deck.push(card)
-    }
-  }
-  return deck
-}
 
 const makeKwartetList = (letters, kwartetList) => {
   for (let i=0; i<7; i++){
@@ -74,22 +52,10 @@ const dealCard = (playerNo, deck) => {
         return { ...card }
       }
     })
-  } else if (selectHand(deck,0).length === 0) { 
+  } else if (this.selectHand(deck,0).length === 0) { 
     console.log('!!!!!de kaarten zijn op!');
     return deck;
   } else return dealCard(playerNo, deck)
-}
-
-const dealCards = (player, deck, no) => {
-  no--
-  var newDeck
-  // const from = 0
-  if (no >= 0) {
-    newDeck = dealCard(player, deck)
-    return dealCards(player, newDeck, no)
-  } else {
-    return deck
-  }
 }
 
 const selectPlayerName = (playerIdNo) => {
@@ -111,7 +77,7 @@ function checkKwartet(deck, kwartetList, player){
   // checks if there are four card objects in the hand with the same letter
   // if so > puts letter in kwartet array
   //       > and deletes those four card objects from hand. 
-  var hand = selectHand(deck,player);
+  var hand = this.selectHand(deck,player);
   let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
   // let kwartet = {};
   // voor elk van de waarden in letters, count number of objects.
@@ -134,11 +100,10 @@ function checkKwartet(deck, kwartetList, player){
   }
   return kwartetList;
 }
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
 
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
-var deck = deckCards([])
+// var deck = deckCards([])
 let kwartetList = makeKwartetList(letters, [])
 
 const player1 = {}
@@ -150,7 +115,6 @@ player2.name = 'Bennie';
 var playerTurnID
 var otherPlayerID
 
-deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 selectTurn(player1, player2);
 
 class App extends PureComponent {
@@ -158,7 +122,6 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      deck: deck,
       player1: player1,
       player2: player2,
       playerTurn: playerTurnID,
@@ -166,7 +129,6 @@ class App extends PureComponent {
       kaart: {},
       validCard: true,
       kwartetList: kwartetList,
-      // Messages: messages
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -208,6 +170,8 @@ class App extends PureComponent {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
+  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+
   changeHand() {
     const validCard = true;
     let playerTurn = this.state.playerTurn;
@@ -246,7 +210,7 @@ class App extends PureComponent {
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in the hand of the player
 
-      for (let c of selectHand(deck, player)) {
+      for (let c of this.selectHand(deck, player)) {
         if (card.letter === c.letter){
           console.log('Je mag deze kaart vragen.')
           return true;
@@ -259,7 +223,7 @@ class App extends PureComponent {
     function checkCardInHand(card, deck){
       var letter = card.letter;
       var number = card.number;
-      for (let c of selectHand(deck, otherPlayer)) {
+      for (let c of this.selectHand(deck, otherPlayer)) {
         if (letter === c.letter && number === c.number){
           return true;
         }
@@ -288,9 +252,9 @@ class App extends PureComponent {
   }
 
   render() {
-    const {askedCard, game} = this; // functions
-    const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
-    const {message} = this.props;
+    const {askedCard, game, selectHand} = this; // functions
+    const {otherPlayer, playerTurn} = this.state; // values, vars, consts etc.
+    const {message, deck} = this.props;
     return ( 
       <div className = "App" >
         <header className = "App-header" >
@@ -319,8 +283,8 @@ class App extends PureComponent {
     );
   }
 }
-const mapStateToProps = ({ message }) => ({
-  message
+const mapStateToProps = ({ message, deck }) => ({
+  message, deck
 })
 
 export default connect(mapStateToProps)(App);
