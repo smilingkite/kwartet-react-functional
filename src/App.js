@@ -3,13 +3,10 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux'
 import { SELECT_MESSAGE } from './actions/selectMessage'
-// import { START_DEAL_CARDS } from './actions/startDealCards'
 import Card from './helpers/cardConstructor';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
-
-// TypeError: selectHand is not a function (line 272)
 
 // WIP:
 // *) REDUX
@@ -105,9 +102,9 @@ function checkKwartet(deck, kwartetList, player){
   return kwartetList;
 }
 const selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo )
+const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
-// var deck = deckCards([])
 let kwartetList = makeKwartetList(letters, [])
 
 const player1 = {}
@@ -118,8 +115,6 @@ player2.idNo = 2 ;
 player2.name = 'Bennie';
 var playerTurnID
 var otherPlayerID
-
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 selectTurn(player1, player2);
 
@@ -176,6 +171,7 @@ class App extends PureComponent {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
+  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
   changeHand() {
     const validCard = true;
@@ -269,12 +265,26 @@ class App extends PureComponent {
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
-         
+          <PlayerComponent 
+            key={1} 
+            turn={true} 
+            hand ={selectHand(deck, playerTurn)} 
+            kwartet = {selectKwartet(kwartetList, playerTurn)} 
+            name = {selectPlayerName(playerTurn)} 
+          />
+          <PlayerComponent 
+            key={2} 
+            turn={false} 
+            hand ={selectHand(deck, otherPlayer)} 
+            kwartet = {selectKwartet(kwartetList, otherPlayer)} 
+            name = {selectPlayerName(otherPlayer)} 
+          />
         </div> 
       </div>
     );
   }
 }
+
 const mapStateToProps = ({ message, deck }) => ({
   message, deck
 })
