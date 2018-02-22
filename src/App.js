@@ -280,14 +280,14 @@ class App extends PureComponent {
 
   render() {
     const {askedCard, game} = this; // functions
-    const {otherPlayer, playerTurn, deck, messages} = this.state; // values, vars, consts etc.
-
+    const {otherPlayer, playerTurn, deck} = this.state; // values, vars, consts etc.
+    const {message} = this.props;
     return ( 
       <div className = "App" >
         <header className = "App-header" >
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
-
+        <p className = "message" >{message}</p>
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
@@ -310,8 +310,8 @@ class App extends PureComponent {
     );
   }
 }
-const mapStateToProps = ({ messages }) => ({
-  messages
+const mapStateToProps = ({ message }) => ({
+  message
 })
 
 export default connect(mapStateToProps)(App);
