@@ -1,10 +1,11 @@
 import React, {
-  Component
+  PureComponent
 } from 'react';
+import { connect } from 'react-redux'
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
-import Messages from './data/messages'
+
 
 // WIP:
 // *) Let computer handle player2
@@ -150,7 +151,7 @@ var otherPlayerID
 deck = dealCards(player2.idNo, dealCards(player1.idNo, deck, 6), 6);
 selectTurn(player1, player2);
 
-class App extends Component {
+class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -163,7 +164,7 @@ class App extends Component {
       kaart: {},
       validCard: true,
       kwartetList: kwartetList,
-      Messages: Messages
+      // Messages: messages
     };
     this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
@@ -279,14 +280,14 @@ class App extends Component {
 
   render() {
     const {askedCard, game} = this; // functions
-    const {otherPlayer, playerTurn, deck, Messages} = this.state; // values, vars, consts etc.
+    const {otherPlayer, playerTurn, deck, messages} = this.state; // values, vars, consts etc.
 
     return ( 
       <div className = "App" >
         <header className = "App-header" >
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
-        <p className ="message">{Messages.beurt}</p>
+        <p className ="message">{messages}</p>
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
@@ -309,5 +310,8 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = ({ messages }) => ({
+  messages
+})
 
-export default App;
+export default connect(mapStateToProps)(App);
