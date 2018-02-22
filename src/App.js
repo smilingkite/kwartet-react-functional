@@ -8,7 +8,10 @@ import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
 
+// TypeError: selectHand is not a function (line 272)
+
 // WIP:
+// *) REDUX
 // *) Let computer handle player2
 // *) endgame
 //  1) change turn automatically when no more cards in hand
@@ -115,6 +118,8 @@ player2.name = 'Bennie';
 var playerTurnID
 var otherPlayerID
 
+const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+
 selectTurn(player1, player2);
 
 class App extends PureComponent {
@@ -170,7 +175,6 @@ class App extends PureComponent {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
-  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
   changeHand() {
     const validCard = true;
@@ -210,7 +214,7 @@ class App extends PureComponent {
     function legitRequestedCard(card, player){
       // checks whether card.letter appears in the hand of the player
 
-      for (let c of this.selectHand(deck, player)) {
+      for (let c of selectHand(deck, player)) {
         if (card.letter === c.letter){
           console.log('Je mag deze kaart vragen.')
           return true;
