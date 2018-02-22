@@ -49,10 +49,11 @@ function moveCard(kaart, deck, playerId) {
   deck[cardIndex].deckNo = playerId;
   return deck;
   // *** attempt at a more functional version of this function.
-  // var newDeck = deck.map(c => {
+  // var deckNo = playerId
+  // deck = deck.map(c => {
   //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
   // })
-  // return newDeck;
+  // return deck;
 }
 
 const dealCard = (playerNo, deck) => {
