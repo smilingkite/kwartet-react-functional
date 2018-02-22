@@ -2,6 +2,8 @@ import React, {
   PureComponent
 } from 'react';
 import { connect } from 'react-redux'
+import {SELECT_MESSAGE} from './actions/selectMessage'
+
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
@@ -199,6 +201,11 @@ class App extends PureComponent {
     this.setState({ validCard: validCard});
     return ;
   }
+
+  changeMessage = (message) => {
+    this.props.dispatch({type: SELECT_MESSAGE, payload: message})
+  }
+
   changeHand() {
     const validCard = true;
     let playerTurn = this.state.playerTurn;
@@ -217,7 +224,7 @@ class App extends PureComponent {
       playerTurn = player1;
       otherPlayer = player2;
     }
-    console.log('de beurt is gewisseld');
+    this.changeMessage("beurtWissel");
     this.setState(
       {...this.state, 
         playerTurn,
