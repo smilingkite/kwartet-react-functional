@@ -2,6 +2,8 @@ import React, {
   PureComponent
 } from 'react';
 import { connect } from 'react-redux'
+import {SELECT_MESSAGE} from './actions/selectMessage'
+
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
@@ -182,6 +184,7 @@ class App extends PureComponent {
       letter = letter[0];
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
+
       validCard = false;
     }
     try {
@@ -189,6 +192,7 @@ class App extends PureComponent {
       number = parseInt(number[0], 10);
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
+
       validCard = false;
     }
     const playerId = this.state.playerTurn;
@@ -199,6 +203,11 @@ class App extends PureComponent {
     this.setState({ validCard: validCard});
     return ;
   }
+
+  changeMessage = (message) => {
+    this.props.dispatch({type: SELECT_MESSAGE, payload: message})
+  }
+
   changeHand() {
     const validCard = true;
     let playerTurn = this.state.playerTurn;
@@ -217,7 +226,7 @@ class App extends PureComponent {
       playerTurn = player1;
       otherPlayer = player2;
     }
-    console.log('de beurt is gewisseld');
+    this.changeMessage("beurtWissel");
     this.setState(
       {...this.state, 
         playerTurn,
@@ -243,7 +252,7 @@ class App extends PureComponent {
           return true;
         }
       }
-      console.log('Je mage deze kaart niet vragen.')
+      console.log('Je mag deze kaart niet vragen.')
       return false;
     }
 
@@ -263,7 +272,8 @@ class App extends PureComponent {
     } else {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
-          console.log('Goeie gok!');
+          console.log("Goeie Gok!")
+          // this.changeMessage("goeieGok");
           deck = moveCard(kaart, deck, playerTurn);
           kwartetList = checkKwartet(deck, kwartetList, playerTurn);
         } else {
@@ -274,7 +284,6 @@ class App extends PureComponent {
         this.changeHand();  
       }
     }
-
     return card
   }
 
