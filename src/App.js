@@ -184,6 +184,7 @@ class App extends PureComponent {
       letter = letter[0];
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
+
       validCard = false;
     }
     try {
@@ -191,6 +192,7 @@ class App extends PureComponent {
       number = parseInt(number[0], 10);
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
+
       validCard = false;
     }
     const playerId = this.state.playerTurn;
@@ -250,7 +252,7 @@ class App extends PureComponent {
           return true;
         }
       }
-      console.log('Je mage deze kaart niet vragen.')
+      console.log('Je mag deze kaart niet vragen.')
       return false;
     }
 
@@ -270,7 +272,7 @@ class App extends PureComponent {
     } else {
       if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
         if (checkCardInHand(kaart, deck)) {
-          console.log('Goeie gok!');
+          // this.changeMessage("goeieGok");
           deck = moveCard(kaart, deck, playerTurn);
           kwartetList = checkKwartet(deck, kwartetList, playerTurn);
         } else {
