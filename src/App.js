@@ -287,7 +287,7 @@ class App extends PureComponent {
         <header className = "App-header" >
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
-        <p className ="message">{messages}</p>
+
         <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
