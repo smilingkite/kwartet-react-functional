@@ -10,6 +10,9 @@ import './App.css';
 
 // WIP:
 // *) REDUX
+      // playerturn in redux
+      // move card in redux
+      // game logic in redux
 // *) Let computer handle player2
 // *) endgame
 //  1) change turn automatically when no more cards in hand
