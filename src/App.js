@@ -11,6 +11,10 @@ import './App.css';
 
 // WIP:
 // *) REDUX
+      // connect interface to redux
+        // use 'input.value.trim()' logic on interface component 
+        // (see: https://redux.js.org/basics/usage-with-react)
+        // will hopefully prevent endless loop
       // move card in redux
       // game logic in redux
 // *) Let computer handle player2
