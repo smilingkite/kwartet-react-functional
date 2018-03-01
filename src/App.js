@@ -12,6 +12,7 @@ import './App.css';
 // WIP:
 // *) REDUX
       // move card in redux
+      // change turn in redux
       // game logic in redux
 // *) Let computer handle player2
 // *) endgame
