@@ -69,6 +69,7 @@ class App extends PureComponent {
       letter = letter[0];
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
+      this.changeMessage('errorLetter');
       validCard = false;
     }
     try {
@@ -76,6 +77,7 @@ class App extends PureComponent {
       number = parseInt(number[0], 10);
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
+      this.changeMessage('errorNumber');
       validCard = false;
     }
     const playerTurnID = this.props.players.playerTurnID;
@@ -83,7 +85,7 @@ class App extends PureComponent {
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log(kaartuitvoer);
     if (validCard) this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
-    // this.setState({ validCard: validCard});
+
     return ;
   }
 
@@ -97,6 +99,30 @@ class App extends PureComponent {
 
   }
   game(card) {
+
+    let playerTurn = this.props.players.playerTurnID;
+    let otherPlayer = this.props.players.otherPlayerID;
+    let deck = this.props.deck;
+    let kaart = this.props.askedCard;
+
+    function legitRequestedCard(card, player){
+      // checks whether card.letter appears in the hand of the player
+
+      for (let c of selectHand(deck, player)) {
+        if (card.letter === c.letter){
+          console.log('Je mag deze kaart vragen.')
+          return true;
+        }
+      }
+      console.log('Je mag deze kaart niet vragen.')
+      return false;
+    }
+
+    if (legitRequestedCard(kaart, playerTurn)) {
+      this.changeMessage('terechtVragen');
+    } else {
+      this.changeMessage('error')
+    }
 
     return card
   }
