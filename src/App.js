@@ -56,9 +56,9 @@ class App extends PureComponent {
     // this.changeHand = this.changeHand.bind(this);
   }
 
-  askedCard(card, playerTurnID) {
+  askedCard(card) {
     // turns string answer into card object
-    // card = card.toUpperCase();
+    card = card.toUpperCase();
     console.log('in asked Card function')
     console.log(card)
     let validCard = true;
@@ -78,7 +78,8 @@ class App extends PureComponent {
       console.log('Je gaf geen geldig nummer op.');
       validCard = false;
     }
-    // const playerId = this.state.playerTurn;
+    const playerTurnID = this.props.players.playerTurnID;
+    console.log(playerTurnID)
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log(kaartuitvoer);
     if (validCard) this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
@@ -116,7 +117,7 @@ class App extends PureComponent {
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
         <p className = "message" >{message}</p>
-        <Interface onNewCard={game(askedCard(card,playerTurnID))} />
+        <Interface onNewCard={game(askedCard)} />
 
         <div className = "Game" > 
           <PlayerComponent 
