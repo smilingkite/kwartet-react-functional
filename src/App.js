@@ -135,7 +135,7 @@ class App extends PureComponent {
         // this.changeHand();      
       }
     } else {
-      this.changeMessage('error')
+      // this.changeMessage('error') - also where app ends up on start app!
     }
 
     return card
