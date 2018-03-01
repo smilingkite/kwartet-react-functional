@@ -10,6 +10,7 @@ import './App.css';
 
 // WIP:
 // *) REDUX
+      // players in redux
       // playerturn in redux
       // move card in redux
       // game logic in redux
@@ -38,31 +39,31 @@ const selectPlayerName = (playerIdNo) => {
   else return player2.name
 }
 
-const selectTurn = (player1, player2) => {
-  if (Math.random() < 0.5) {
-    playerTurnID = player1.idNo;
-    otherPlayerID = player2.idNo;
-  } else {
-    playerTurnID = player2.idNo;
-    otherPlayerID = player1.idNo;
-  }
-}
+// const selectTurn = (player1, player2) => {
+//   if (Math.random() < 0.5) {
+//     playerTurnID = player1.idNo;
+//     otherPlayerID = player2.idNo;
+//   } else {
+//     playerTurnID = player2.idNo;
+//     otherPlayerID = player1.idNo;
+//   }
+// }
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
 let kwartetList = makeKwartetList(letters, [])
 
-const player1 = {}
-const player2 = {}
-player1.idNo = 1 ; 
-player1.name = 'Aafje';
-player2.idNo = 2 ; 
-player2.name = 'Bennie';
-var playerTurnID
-var otherPlayerID
+// const player1 = {}
+// const player2 = {}
+// player1.idNo = 1 ; 
+// player1.name = 'Aafje';
+// player2.idNo = 2 ; 
+// player2.name = 'Bennie';
+// var playerTurnID
+// var otherPlayerID
 
-selectTurn(player1, player2);
+// selectTurn(player1, player2);
 
 class App extends PureComponent {
 
