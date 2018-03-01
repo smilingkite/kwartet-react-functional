@@ -34,10 +34,10 @@ function moveCard(kaart, deck, playerId) {
   // return deck;
 }
 
-const selectPlayerName = (playerIdNo) => {
-  if (playerIdNo === 1) return player1.name
-  else return player2.name
-}
+// const selectPlayerName = (playerIdNo) => {
+//   if (playerIdNo === 1) return player1.name
+//   else return player2.name
+// }
 
 // const selectTurn = (player1, player2) => {
 //   if (Math.random() < 0.5) {
@@ -51,8 +51,8 @@ const selectPlayerName = (playerIdNo) => {
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
-const letters = ["A", "B", "C", "D", "E", "F", "G"]
-let kwartetList = makeKwartetList(letters, [])
+// const letters = ["A", "B", "C", "D", "E", "F", "G"]
+// let kwartetList = makeKwartetList(letters, [])
 
 // const player1 = {}
 // const player2 = {}
@@ -121,24 +121,24 @@ class App extends PureComponent {
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
   changeHand() {
-    const validCard = true;
-    let playerTurn = this.state.playerTurn;
-    let otherPlayer = this.state.otherPlayer;
-    let player1 = this.state.player1.idNo;
-    let player2 = this.state.player2.idNo;
-    let deck = dealCard(playerTurn, this.state.deck)
+    // const validCard = true;
+    // let playerTurn = this.state.playerTurn;
+    // let otherPlayer = this.state.otherPlayer;
+    // let player1 = this.state.player1.idNo;
+    // let player2 = this.state.player2.idNo;
+    // let deck = dealCard(playerTurn, this.state.deck)
 
-    kwartetList = checkKwartet(deck, kwartetList, playerTurn);
+    // kwartetList = checkKwartet(deck, kwartetList, playerTurn);
 
-    if (playerTurn === player1) {
-      playerTurn = player2;
-      otherPlayer = player1;
-    }
-    else {
-      playerTurn = player1;
-      otherPlayer = player2;
-    }
-    this.changeMessage("beurtWissel");
+    // if (playerTurn === player1) {
+    //   playerTurn = player2;
+    //   otherPlayer = player1;
+    // }
+    // else {
+    //   playerTurn = player1;
+    //   otherPlayer = player2;
+    // }
+    // this.changeMessage("beurtWissel");
     // this.setState(
     //   {...this.state, 
     //     playerTurn,
@@ -155,54 +155,54 @@ class App extends PureComponent {
     // let deck = this.state.deck;
     // let kaart = this.state.kaart;
 
-    function legitRequestedCard(card, player){
-      // checks whether card.letter appears in the hand of the player
+    // function legitRequestedCard(card, player){
+    //   // checks whether card.letter appears in the hand of the player
 
-      for (let c of selectHand(deck, player)) {
-        if (card.letter === c.letter){
-          console.log('Je mag deze kaart vragen.')
-          return true;
-        }
-      }
-      console.log('Je mag deze kaart niet vragen.')
-      return false;
-    }
+    //   for (let c of selectHand(deck, player)) {
+    //     if (card.letter === c.letter){
+    //       console.log('Je mag deze kaart vragen.')
+    //       return true;
+    //     }
+    //   }
+    //   console.log('Je mag deze kaart niet vragen.')
+    //   return false;
+    // }
 
-    function checkCardInHand(card, deck){
-      var letter = card.letter;
-      var number = card.number;
-      for (let c of this.selectHand(deck, otherPlayer)) {
-        if (letter === c.letter && number === c.number){
-          return true;
-        }
-      }
-      return false;
-    }
+    // function checkCardInHand(card, deck){
+    //   var letter = card.letter;
+    //   var number = card.number;
+    //   for (let c of this.selectHand(deck, otherPlayer)) {
+    //     if (letter === c.letter && number === c.number){
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // }
 
-    if (!this.state.validCard) {
-      this.changeHand();    
-    } else {
-      if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
-        if (checkCardInHand(kaart, deck)) {
-          console.log("Goeie Gok!")
-          // this.changeMessage("goeieGok");
-          deck = moveCard(kaart, deck, playerTurn);
-          kwartetList = checkKwartet(deck, kwartetList, playerTurn);
-        } else {
-          console.log('De ander heeft de kaart niet')
-          this.changeHand();      
-        }
-      } else if (kaart.deckNo === playerTurn) {
-        this.changeHand();  
-      }
-    }
+    // if (!this.state.validCard) {
+    //   this.changeHand();    
+    // } else {
+    //   if (kaart.deckNo === playerTurn && legitRequestedCard(kaart, playerTurn)) {
+    //     if (checkCardInHand(kaart, deck)) {
+    //       console.log("Goeie Gok!")
+    //       // this.changeMessage("goeieGok");
+    //       deck = moveCard(kaart, deck, playerTurn);
+    //       kwartetList = checkKwartet(deck, kwartetList, playerTurn);
+    //     } else {
+    //       console.log('De ander heeft de kaart niet')
+    //       this.changeHand();      
+    //     }
+    //   } else if (kaart.deckNo === playerTurn) {
+    //     this.changeHand();  
+    //   }
+    // }
     return card
   }
 
   render() {
     const {askedCard, game, selectHand} = this; // functions
     // const {otherPlayer, playerTurn} = this.state; // values, vars, consts etc.
-    const {message, deck} = this.props;
+    const {message, deck, players} = this.props;
     return ( 
       <div className = "App" >
         <header className = "App-header" >
@@ -215,16 +215,14 @@ class App extends PureComponent {
           <PlayerComponent 
             key={1} 
             turn={true} 
-            hand ={selectHand(deck, playerTurn)} 
-            kwartet = {selectKwartet(kwartetList, playerTurn)} 
-            name = {selectPlayerName(playerTurn)} 
+            hand ={selectHand(deck, players.playerTurnID)} 
+            // name = {selectPlayerName(players.playerTurnID)} 
           />
           <PlayerComponent 
             key={2} 
             turn={false} 
-            hand ={selectHand(deck, otherPlayer)} 
-            kwartet = {selectKwartet(kwartetList, otherPlayer)} 
-            name = {selectPlayerName(otherPlayer)} 
+            hand ={selectHand(deck, players.otherPlayerID)} 
+            // name = {selectPlayerName(players.otherPlayerID)} 
           />
         </div> 
       </div>
@@ -232,8 +230,8 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ message, deck }) => ({
-  message, deck
+const mapStateToProps = ({ message, deck, players }) => ({
+  message, deck, players
 })
 
 export default connect(mapStateToProps)(App);

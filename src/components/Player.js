@@ -20,7 +20,7 @@ class PlayerComponent extends React.Component{
         </div>
         <div className="kwartettenlijst">
 
-          { kwartet.length > 0 && 
+          {/* { kwartet.length > 0 && 
             <div>
               <p>Kwartetten</p>
               <ul className="kwartetten">
@@ -33,7 +33,7 @@ class PlayerComponent extends React.Component{
                 }
               </ul>
             </div>
-          }
+          } */}
         </div>
         
 

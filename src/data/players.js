@@ -19,3 +19,12 @@ var playerTurnID
 var otherPlayerID
 
 selectTurn(player1, player2);
+
+const players = {
+  player1,
+  player2,
+  otherPlayerID,
+  playerTurnID
+}
+
+export default players
