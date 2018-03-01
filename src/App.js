@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux'
 import { SELECT_MESSAGE } from './actions/selectMessage'
+import { ASKED_CARD } from './actions/askedCard'
 import Card from './helpers/cardConstructor';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
@@ -62,9 +63,11 @@ class App extends PureComponent {
     this.changeHand = this.changeHand.bind(this);
   }
 
-  askedCard(card) {
+  askedCard(card, playerTurnID) {
     // turns string answer into card object
-    card = card.toUpperCase();
+    // card = card.toUpperCase();
+    console.log('in asked Card function')
+    console.log(card)
     let validCard = true;
     const letterRegex = /[A-G]/;
     const numberRegex = /[1-4]/;
@@ -73,7 +76,6 @@ class App extends PureComponent {
       letter = letter[0];
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
-
       validCard = false;
     }
     try {
@@ -81,14 +83,12 @@ class App extends PureComponent {
       number = parseInt(number[0], 10);
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
-
       validCard = false;
     }
-    const playerId = this.state.playerTurn;
-    const kaartuitvoer = new Card(letter, number, playerId);
+    // const playerId = this.state.playerTurn;
+    const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log(kaartuitvoer);
-
-    // this.setState({ kaart: kaartuitvoer});
+    this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
     // this.setState({ validCard: validCard});
     return ;
   }
@@ -180,7 +180,7 @@ class App extends PureComponent {
 
   render() {
     const {askedCard, game, selectHand} = this; // functions
-    const {message, deck} = this.props;
+    const {message, deck, card} = this.props;
     const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
 
     const selectPlayerName = (playerIdNo) => {
@@ -194,7 +194,7 @@ class App extends PureComponent {
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
         <p className = "message" >{message}</p>
-        <Interface onNewCard={game(askedCard)} />
+        <Interface onNewCard={game(askedCard(card,playerTurnID))} />
 
         <div className = "Game" > 
           <PlayerComponent 
@@ -215,8 +215,8 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ message, deck, players }) => ({
-  message, deck, players
+const mapStateToProps = ({ message, deck, players, askedCard }) => ({
+  message, deck, players, askedCard
 })
 
 export default connect(mapStateToProps)(App);
