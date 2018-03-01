@@ -10,8 +10,6 @@ import './App.css';
 
 // WIP:
 // *) REDUX
-      // players in redux
-      // playerturn in redux
       // move card in redux
       // game logic in redux
 // *) Let computer handle player2
@@ -34,21 +32,6 @@ function moveCard(kaart, deck, playerId) {
   // return deck;
 }
 
-// const selectPlayerName = (playerIdNo) => {
-//   if (playerIdNo === 1) return player1.name
-//   else return player2.name
-// }
-
-// const selectTurn = (player1, player2) => {
-//   if (Math.random() < 0.5) {
-//     playerTurnID = player1.idNo;
-//     otherPlayerID = player2.idNo;
-//   } else {
-//     playerTurnID = player2.idNo;
-//     otherPlayerID = player1.idNo;
-//   }
-// }
-
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 // const letters = ["A", "B", "C", "D", "E", "F", "G"]
@@ -70,10 +53,6 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
     // this.state = {
-    //   player1: player1,
-    //   player2: player2,
-    //   playerTurn: playerTurnID,
-    //   otherPlayer: otherPlayerID,
     //   kaart: {},
     //   validCard: true,
     //   kwartetList: kwartetList,
@@ -201,8 +180,14 @@ class App extends PureComponent {
 
   render() {
     const {askedCard, game, selectHand} = this; // functions
-    // const {otherPlayer, playerTurn} = this.state; // values, vars, consts etc.
-    const {message, deck, players} = this.props;
+    const {message, deck} = this.props;
+    const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
+
+    const selectPlayerName = (playerIdNo) => {
+      if (playerIdNo === 1) return player1.name
+      else return player2.name
+    }
+
     return ( 
       <div className = "App" >
         <header className = "App-header" >
@@ -215,14 +200,14 @@ class App extends PureComponent {
           <PlayerComponent 
             key={1} 
             turn={true} 
-            hand ={selectHand(deck, players.playerTurnID)} 
-            // name = {selectPlayerName(players.playerTurnID)} 
+            hand ={selectHand(deck, playerTurnID)} 
+            name = {selectPlayerName(playerTurnID)} 
           />
           <PlayerComponent 
             key={2} 
             turn={false} 
-            hand ={selectHand(deck, players.otherPlayerID)} 
-            // name = {selectPlayerName(players.otherPlayerID)} 
+            hand ={selectHand(deck, otherPlayerID)} 
+            name = {selectPlayerName(otherPlayerID)} 
           />
         </div> 
       </div>
