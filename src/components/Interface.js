@@ -11,8 +11,6 @@ const Interface = ({onNewCard=f=>f}) => {
   };
   return (
     <div className="interface">
-      {/* <span className="boodschap">{message}</span>
-          */}
       <form onSubmit={submit}>
         <input ref={input => _kaart = input}
           type="text"
