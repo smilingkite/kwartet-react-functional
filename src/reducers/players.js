@@ -1,5 +1,5 @@
 import players from '../data/players'
-import {CHANGE_TURN} from '../actions/changeTurn'
+import { CHANGE_TURN } from '../actions/changeTurn'
 
 export default (state = players, {type, payload} = {}) => {
 
