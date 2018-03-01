@@ -118,8 +118,28 @@ class App extends PureComponent {
       return false;
     }
 
+    function checkCardInHand(card, deck){
+      var letter = card.letter;
+      var number = card.number;
+      for (let c of selectHand(deck, otherPlayer)) {
+        if (letter === c.letter && number === c.number){
+          return true;
+        }
+      }
+      return false;
+    }
+
     if (legitRequestedCard(kaart, playerTurn)) {
       this.changeMessage('terechtVragen');
+      if (checkCardInHand(kaart, deck)) {
+        console.log("Goeie Gok!")
+        this.changeMessage("goeieGok");
+        // deck = moveCard(kaart, deck, playerTurn);
+        // kwartetList = checkKwartet(deck, kwartetList, playerTurn);
+      } else {
+        console.log('De ander heeft de kaart niet')
+        // this.changeHand();      
+      }
     } else {
       this.changeMessage('error')
     }
