@@ -37,7 +37,6 @@ const dealCard = (playerNo, deck) => {
 const dealCards = (player, deck, no) => {
   no--
   var newDeck
-  // const from = 0
   if (no >= 0) {
     newDeck = dealCard(player, deck)
     return dealCards(player, newDeck, no)
@@ -48,6 +47,5 @@ const dealCards = (player, deck, no) => {
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 deck = dealCards(2, dealCards(1, deck, 6), 6);
-console.log(deck)
 
 export default deck
