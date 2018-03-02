@@ -55,8 +55,6 @@ class App extends PureComponent {
   askedCard(card) {
     // turns string answer into card object
     card = card.toUpperCase();
-    console.log('in asked Card function')
-    console.log(card)
     let validCard = true;
     const letterRegex = /[A-G]/;
     const numberRegex = /[1-4]/;
@@ -77,7 +75,6 @@ class App extends PureComponent {
       validCard = false;
     }
     const playerTurnID = this.props.players.playerTurnID;
-    console.log(playerTurnID)
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log(kaartuitvoer);
     if (validCard) this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
