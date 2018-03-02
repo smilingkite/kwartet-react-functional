@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
+import askedCard from './askedCard'
+import deck from './deck'
 import messages from './messages'
 import message from './message'
-import deck from './deck'
 import players from './players'
-import askedCard from './askedCard'
+
 
 const kwartetApp = combineReducers({
-  messages, message, deck, players, askedCard
+  askedCard, deck, messages, message, players,
 }) 
 
 export default kwartetApp
