@@ -89,8 +89,8 @@ class App extends PureComponent {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
-  changeTurn = (card) => {
-    this.props.dispatch({type: CHANGE_TURN, payload: card})
+  changeTurn = () => {
+    this.props.dispatch({type: CHANGE_TURN})
   }
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
@@ -142,6 +142,7 @@ class App extends PureComponent {
       }
     } else {
       // this.changeMessage('error') - also where app ends up on start app!
+      // this.changeTurn(card);   
     }
 
     return card
