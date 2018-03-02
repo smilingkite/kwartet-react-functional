@@ -4,6 +4,7 @@ import React, {
 import { connect } from 'react-redux'
 import { SELECT_MESSAGE } from './actions/selectMessage'
 import { ASKED_CARD } from './actions/askedCard'
+import { CHANGE_TURN } from './actions/changeTurn'
 import Card from './helpers/cardConstructor';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
@@ -88,6 +89,10 @@ class App extends PureComponent {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
+  changeTurn = (card) => {
+    this.props.dispatch({type: CHANGE_TURN, payload: card})
+  }
+
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
   changeHand() {
@@ -133,7 +138,7 @@ class App extends PureComponent {
         // kwartetList = checkKwartet(deck, kwartetList, playerTurn);
       } else {
         console.log('De ander heeft de kaart niet')
-        // this.changeHand();      
+        this.changeTurn(card);      
       }
     } else {
       // this.changeMessage('error') - also where app ends up on start app!
