@@ -3,7 +3,6 @@ import { CHANGE_TURN } from '../actions/changeTurn'
 
 export default (state = players, {type} = {}) => {
   let playerTurn = players.playerTurnID
-  // let otherPlayer = players.otherPlayerID
   let player1 = players.player1
   let player2 = players.player2
   let newPlayerTurn, newOtherPlayer
