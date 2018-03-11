@@ -28,7 +28,7 @@ class App extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.askedCard = this.askedCard.bind(this);
+    this.game = this.game.bind(this);
   }
 
   changeMessage = (message) => {
@@ -37,6 +37,10 @@ class App extends PureComponent {
 
   changeTurn = () => {
     this.props.dispatch({type: CHANGE_TURN})
+  }
+
+  dealRandomCardNow(playerTurnID, deck) {
+    this.props.dispatch({ type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck) });
   }
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
@@ -50,14 +54,16 @@ class App extends PureComponent {
     if (cardType.length > 0) return true
     else return false
   }
-  cardInHand = (otherPlayerHand, otherPlayerID, kaartuitvoer) =>{
+
+  hasCardInHand = (hand, kaartuitvoer) =>{
     let letter = kaartuitvoer.letter
     let number = kaartuitvoer.number
 
-    if (otherPlayerHand.filter(card => card.letter === letter && card.number === number).length > 0) return true
+    if (hand.filter(card => card.letter === letter && card.number === number).length > 0) return true
     return false
   }
-  askedCard(card) {
+
+  game(card) {
     // turns string answer into card object
     card = card.toUpperCase();
     let validCard = true;
@@ -74,7 +80,7 @@ class App extends PureComponent {
       console.log('Je gaf geen geldige letter op.');
       this.changeMessage('errorLetter');
       this.changeTurn()
-      this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)})
+      this.dealRandomCardNow(playerTurnID, deck);
       validCard = false;
     }
     try {
@@ -84,7 +90,7 @@ class App extends PureComponent {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
       this.changeTurn()
-      this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)}) 
+      this.dealRandomCardNow(playerTurnID, deck);
       validCard = false;
     }
     const kaartuitvoer = new Card(letter, number, playerTurnID);
@@ -94,15 +100,15 @@ class App extends PureComponent {
     if (validCard) {
       if (!this.legitAskedCard(deck, playerTurnID, kaartuitvoer)) {
         this.changeTurn()
-        this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)})
+        this.dealRandomCardNow(playerTurnID, deck);
       } else {
         // If card not in otherplayer hand, changeTurn
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
-        if (this.cardInHand(otherPlayerHand, otherPlayerID, kaartuitvoer)) {
+        if (this.hasCardInHand(otherPlayerHand, kaartuitvoer)) {
           this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
         } else {
           this.changeTurn()
-          this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)})
+          this.dealRandomCardNow(playerTurnID, deck);
         }
         validCard = false;
       }
@@ -111,8 +117,10 @@ class App extends PureComponent {
     return ;
   }
 
+
+
   render() {
-    const {askedCard, selectHand} = this; // functions
+    const {game, selectHand} = this; // functions
     const {message, deck} = this.props;
     const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
 
@@ -127,7 +135,7 @@ class App extends PureComponent {
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
         <p className = "message" >{message}</p>
-        <Interface onNewCard={askedCard} />
+        <Interface onNewCard={game} />
 
         <div className = "Game" > 
           <PlayerComponent 
