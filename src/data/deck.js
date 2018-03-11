@@ -1,4 +1,5 @@
 import Card from '../helpers/cardConstructor';
+import dealCard from '../helpers/dealCard';
 
 function deckCards(deck) {
   for (let i = 0; i < 7; i++) {
@@ -13,27 +14,6 @@ function deckCards(deck) {
 const letters = ["A", "B", "C", "D", "E", "F", "G"]
 var deck = deckCards([])
 
-const dealCard = (playerNo, deck) => {
-  // deal a random card: assign one card to the player
-  const deckNo = playerNo
-  const random = Math.floor(Math.random() * deck.length)
-  if (deck[random].deckNo === 0) {
-    return deck.map(card => {
-      if (card.deckNo === 0 && deck[random] === card) {
-        return {
-          ...card,
-          deckNo
-        }
-      } else {
-        return { ...card }
-      }
-    })
-  } else if (selectHand(deck,0).length === 0) { 
-    console.log('!!!!!de kaarten zijn op!');
-    return deck;
-  } else return dealCard(playerNo, deck)
-}
-
 const dealCards = (player, deck, no) => {
   no--
   var newDeck
@@ -45,7 +25,6 @@ const dealCards = (player, deck, no) => {
   }
 }
 
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 deck = dealCards(2, dealCards(1, deck, 6), 6);
 
 export default deck
