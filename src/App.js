@@ -42,6 +42,16 @@ class App extends PureComponent {
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
+  legitAskedCard = (deck, handNo, card) => {
+    // console.log('in legitaskedcard')
+    let hand = this.selectHand(deck,handNo)
+    // console.log(hand)
+    let cardType = hand.filter(c=> c.letter === card.letter)
+    // console.log('selected by letter', (cardType.length > 0))
+    if (cardType.length > 0) return true
+    else return false
+  }
+
   askedCard(card) {
     // turns string answer into card object
     card = card.toUpperCase();
@@ -74,8 +84,12 @@ class App extends PureComponent {
 
     // also check of allowed to ask for card, in order to change turn if not. ????
     if (validCard) {
-      this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
-      validCard = false;
+      if (!this.legitAskedCard(deck, playerTurnID, kaartuitvoer)) {
+        this.changeTurn(dealRandomCard(playerTurnID, deck))
+      } else {
+        this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
+        validCard = false;
+      }
     }
 
     return ;
