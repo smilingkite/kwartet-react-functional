@@ -45,8 +45,8 @@ class App extends PureComponent {
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
-  legitAskedCard = (deck, handNo, card) => {
-    // console.log('in legitaskedcard')
+  isLegitAskedCard = (deck, handNo, card) => {
+    // console.log('in isLegitAskedCard')
     let hand = this.selectHand(deck,handNo)
     // console.log(hand)
     let cardType = hand.filter(c=> c.letter === card.letter)
@@ -98,7 +98,7 @@ class App extends PureComponent {
 
     // also check of allowed to ask for card, in order to change turn if not.
     if (validCard) {
-      if (!this.legitAskedCard(deck, playerTurnID, kaartuitvoer)) {
+      if (!this.isLegitAskedCard(deck, playerTurnID, kaartuitvoer)) {
         this.changeTurn()
         this.dealRandomCardNow(playerTurnID, deck);
       } else {
@@ -116,8 +116,6 @@ class App extends PureComponent {
 
     return ;
   }
-
-
 
   render() {
     const {game, selectHand} = this; // functions
