@@ -11,31 +11,15 @@ import Interface from './components/Interface';
 import './App.css';
 
 // WIP:
-// *) REDUX
-      // move card in redux
-      // change turn in redux
-      // game logic in redux
+// *) REDUX 
+      // game logic in redux???:
+      //  * change turn if user asks for card they don't have the letter of in hand
+      //  * draw random card when changing turn. 
+      // kwartet handling
 // *) Let computer handle player2
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
-// *) styles keep working with large hands
-
-
-// function moveCard(kaart, deck, playerId) {
-//   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
-//   // verander deckNo van die kaart in playerId.
-//   deck[cardIndex].deckNo = playerId;
-//   return deck;
-//   // *** attempt at a more functional version of this function.
-//   // var deckNo = playerId
-//   // deck = deck.map(c => {
-//   //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
-//   // })
-//   // return deck;
-// }
-
-// const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 // const letters = ["A", "B", "C", "D", "E", "F", "G"]
 // let kwartetList = makeKwartetList(letters, [])
@@ -90,6 +74,8 @@ class App extends PureComponent {
     const playerTurnID = this.props.players.playerTurnID;
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log('in app.js', kaartuitvoer);
+
+    // also check of allowed to ask for card, in order to change turn if not. ????
     if (validCard) {
       this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
       validCard = false;
