@@ -51,7 +51,13 @@ class App extends PureComponent {
     if (cardType.length > 0) return true
     else return false
   }
+  cardInHand = (otherPlayerHand, otherPlayerID, kaartuitvoer) =>{
+    let letter = kaartuitvoer.letter
+    let number = kaartuitvoer.number
 
+    if (otherPlayerHand.filter(card => card.letter === letter && card.number === number).length > 0) return true
+    return false
+  }
   askedCard(card) {
     // turns string answer into card object
     card = card.toUpperCase();
@@ -59,6 +65,7 @@ class App extends PureComponent {
     const letterRegex = /[A-G]/;
     const numberRegex = /[1-4]/;
     const playerTurnID = this.props.players.playerTurnID;
+    const otherPlayerID = this.props.players.otherPlayerID;
     const deck = this.props.deck;
 
     try {
@@ -87,8 +94,14 @@ class App extends PureComponent {
       if (!this.legitAskedCard(deck, playerTurnID, kaartuitvoer)) {
         this.changeTurn(dealRandomCard(playerTurnID, deck))
       } else {
-        // WIP - if card not in otherplayer hand, changeTurn
-        this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
+        // If card not in otherplayer hand, changeTurn
+        let otherPlayerHand = this.selectHand(deck, otherPlayerID)
+
+        if (this.cardInHand(otherPlayerHand, otherPlayerID, kaartuitvoer)) {
+          this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
+        } else {
+          this.changeTurn(dealRandomCard(playerTurnID, deck))
+        }
         validCard = false;
       }
     }
