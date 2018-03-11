@@ -6,6 +6,7 @@ import { SELECT_MESSAGE } from './actions/selectMessage'
 import { ASKED_CARD } from './actions/askedCard'
 import { CHANGE_TURN } from './actions/changeTurn'
 import Card from './helpers/cardConstructor';
+import dealRandomCard from './helpers/dealRandomCard';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
 import './App.css';
@@ -28,24 +29,18 @@ class App extends PureComponent {
 
   constructor(props) {
     super(props);
-    // this.state = {
-    //   kwartetList: kwartetList,
-    // };
-    // this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
-    // this.changeHand = this.changeHand.bind(this);
   }
 
   changeMessage = (message) => {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
-  changeTurn = () => {
-    this.props.dispatch({type: CHANGE_TURN})
+  changeTurn = (card) => {
+    this.props.dispatch({type: CHANGE_TURN, payload: card})
   }
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-
 
   askedCard(card) {
     // turns string answer into card object
@@ -53,13 +48,16 @@ class App extends PureComponent {
     let validCard = true;
     const letterRegex = /[A-G]/;
     const numberRegex = /[1-4]/;
+    const playerTurnID = this.props.players.playerTurnID;
+    const deck = this.props.deck;
+
     try {
       var letter = letterRegex.exec(card);
       letter = letter[0];
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
       this.changeMessage('errorLetter');
-      this.changeTurn();
+      this.changeTurn(dealRandomCard(playerTurnID, deck));
       validCard = false;
     }
     try {
@@ -68,10 +66,9 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
-      this.changeTurn();
+      this.changeTurn(dealRandomCard(playerTurnID, deck));
       validCard = false;
     }
-    const playerTurnID = this.props.players.playerTurnID;
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log('in app.js', kaartuitvoer);
 
