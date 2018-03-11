@@ -82,11 +82,12 @@ class App extends PureComponent {
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log('in app.js', kaartuitvoer);
 
-    // also check of allowed to ask for card, in order to change turn if not. ????
+    // also check of allowed to ask for card, in order to change turn if not.
     if (validCard) {
       if (!this.legitAskedCard(deck, playerTurnID, kaartuitvoer)) {
         this.changeTurn(dealRandomCard(playerTurnID, deck))
       } else {
+        // WIP - if card not in otherplayer hand, changeTurn
         this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
         validCard = false;
       }
