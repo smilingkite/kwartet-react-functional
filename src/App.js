@@ -13,7 +13,7 @@ import './App.css';
 
 // WIP:
 // *) REDUX 
-      // WIP: change turn works only first time. Should deal card & change turn. 
+      // FIX: change turn works only first time. Should deal card & change turn. 
       // kwartet handling
 // *) deal with larger hands
 // *) Let computer handle player2
