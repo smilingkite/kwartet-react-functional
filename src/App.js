@@ -35,7 +35,7 @@ import './App.css';
 //   // return deck;
 // }
 
-const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+// const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
 // const letters = ["A", "B", "C", "D", "E", "F", "G"]
 // let kwartetList = makeKwartetList(letters, [])
@@ -47,10 +47,21 @@ class App extends PureComponent {
     // this.state = {
     //   kwartetList: kwartetList,
     // };
-    this.game = this.game.bind(this);
+    // this.game = this.game.bind(this);
     this.askedCard = this.askedCard.bind(this);
     // this.changeHand = this.changeHand.bind(this);
   }
+
+  changeMessage = (message) => {
+    this.props.dispatch({type: SELECT_MESSAGE, payload: message})
+  }
+
+  changeTurn = () => {
+    this.props.dispatch({type: CHANGE_TURN})
+  }
+
+  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+
 
   askedCard(card) {
     // turns string answer into card object
@@ -64,6 +75,7 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
       this.changeMessage('errorLetter');
+      this.changeTurn();
       validCard = false;
     }
     try {
@@ -72,6 +84,7 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
+      this.changeTurn();
       validCard = false;
     }
     const playerTurnID = this.props.players.playerTurnID;
@@ -85,71 +98,8 @@ class App extends PureComponent {
     return ;
   }
 
-  changeMessage = (message) => {
-    this.props.dispatch({type: SELECT_MESSAGE, payload: message})
-  }
-
-  changeTurn = () => {
-    this.props.dispatch({type: CHANGE_TURN})
-  }
-
-  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-
-  changeHand() {
-
-  }
-  game(card) {
-
-    let playerTurn = this.props.players.playerTurnID;
-    let otherPlayer = this.props.players.otherPlayerID;
-    let deck = this.props.deck;
-    let kaart = this.props.askedCard;
-
-    function legitRequestedCard(card, player){
-      // checks whether card.letter appears in the hand of the player
-
-      for (let c of selectHand(deck, player)) {
-        if (card.letter === c.letter){
-          console.log('Je mag deze kaart vragen.')
-          return true;
-        }
-      }
-      console.log('Je mag deze kaart niet vragen.')
-      return false;
-    }
-
-    function checkCardInHand(card, deck){
-      var letter = card.letter;
-      var number = card.number;
-      for (let c of selectHand(deck, otherPlayer)) {
-        if (letter === c.letter && number === c.number){
-          return true;
-        }
-      }
-      return false;
-    }
-
-    if (legitRequestedCard(kaart, playerTurn)) {
-      this.changeMessage('terechtVragen');
-      if (checkCardInHand(kaart, deck)) {
-        console.log("Goeie Gok!")
-        this.changeMessage("goeieGok");
-        // deck = moveCard(kaart, deck, playerTurn);
-        // kwartetList = checkKwartet(deck, kwartetList, playerTurn);
-      } else {
-        console.log('De ander heeft de kaart niet')
-        // this.changeTurn(card);      
-      }
-    } else {
-      // this.changeMessage('error') - also where app ends up on start app!
-      // this.changeTurn(card);   
-    }
-
-    return card
-  }
-
   render() {
-    const {askedCard, game, selectHand} = this; // functions
+    const {askedCard, selectHand} = this; // functions
     const {message, deck} = this.props;
     const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
 
@@ -164,7 +114,7 @@ class App extends PureComponent {
           <h1 className = "App-title" > Kwartet </h1> 
         </header> 
         <p className = "message" >{message}</p>
-        <Interface onNewCard={game(askedCard)} />
+        <Interface onNewCard={askedCard} />
 
         <div className = "Game" > 
           <PlayerComponent 

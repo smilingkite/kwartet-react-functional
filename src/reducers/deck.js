@@ -18,20 +18,23 @@ export default (state = deck, {type, payload} = {}) => {
 
     case ASKED_CARD:
       // change deck. conditionally:
-      // if 1) card is valid & 2) card-letter in hand playerturn & (these still handled in app.js)
+      // if 1) card is valid (done in app.js) &
+      // 2) card-letter in hand playerturn & 
       // 3) card in hand otherplayer (should be handled here)
       // > 'move' card from otherplayerhand to playerturn hand. 
-      // Payload: Card {letter: "B", number: 1, deckNo: 1}
-      // const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
-      // deck[cardIndex].deckNo = playerId;
+      const selectHand = (deck, letter) => deck.filter(card => card.deckNo === letter)
 
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
-          if (item.deckNo === 0) {
-            return item
-            // & change turn!
+          // Check whether player is allowed to ask for this card 
+          if (selectHand(state, payload.letter).length > 0){
+            if (item.deckNo === 0) {
+              // if card in otherplayerhand > use payload card in deck 
+              // (already has deckNo of current player)
+              return item
+            }
+            else return payload
           }
-          else return payload
         }
         return item
       })

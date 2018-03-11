@@ -1,8 +1,8 @@
-import store from '../store';
+// import store from '../store';
 
 // const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 // let stored = getState
-console.log('STORE', store) // WHY undefined???
+// console.log('STORE', store) // WHY undefined???
 
 // const findRandomUnassignedCard = (deck) => {
 //   if (selectHand(deck,0).length === 0) return {}
