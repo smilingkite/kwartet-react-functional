@@ -5,14 +5,6 @@ import { CHANGE_TURN } from '../actions/changeTurn'
 export default (state = deck, {type, payload} = {}) => {
 
   switch(type) {
-    case CHANGE_TURN: 
-    const updatedDeck = state.map(item => {
-      if(item.letter === payload.letter && item.number === payload.number){
-        return payload
-        }
-      return item
-    })
-    return updatedDeck
 
     case ASKED_CARD:
       // change deck. conditionally:
@@ -20,8 +12,7 @@ export default (state = deck, {type, payload} = {}) => {
       // 2) card-letter in hand playerturn & 
       // 3) card in hand otherplayer (should be handled here)
       // > 'move' card from otherplayerhand to playerturn hand. 
-      const selectHand = (deck, playerTurnId) => deck.filter(card => card.deckNo === playerTurnId)
-
+ 
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
 

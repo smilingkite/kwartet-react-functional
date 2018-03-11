@@ -35,8 +35,8 @@ class App extends PureComponent {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
 
-  changeTurn = (card) => {
-    this.props.dispatch({type: CHANGE_TURN, payload: card})
+  changeTurn = () => {
+    this.props.dispatch({type: CHANGE_TURN})
   }
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
@@ -73,7 +73,8 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
       this.changeMessage('errorLetter');
-      this.changeTurn(dealRandomCard(playerTurnID, deck));
+      this.changeTurn()
+      this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)})
       validCard = false;
     }
     try {
@@ -82,7 +83,8 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
-      this.changeTurn(dealRandomCard(playerTurnID, deck));
+      this.changeTurn()
+      this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)}) 
       validCard = false;
     }
     const kaartuitvoer = new Card(letter, number, playerTurnID);
@@ -91,15 +93,16 @@ class App extends PureComponent {
     // also check of allowed to ask for card, in order to change turn if not.
     if (validCard) {
       if (!this.legitAskedCard(deck, playerTurnID, kaartuitvoer)) {
-        this.changeTurn(dealRandomCard(playerTurnID, deck))
+        this.changeTurn()
+        this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)})
       } else {
         // If card not in otherplayer hand, changeTurn
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
-
         if (this.cardInHand(otherPlayerHand, otherPlayerID, kaartuitvoer)) {
           this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
         } else {
-          this.changeTurn(dealRandomCard(playerTurnID, deck))
+          this.changeTurn()
+          this.props.dispatch({type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck)})
         }
         validCard = false;
       }
