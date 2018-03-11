@@ -18,12 +18,13 @@ export default (state = deck, {type, payload} = {}) => {
       // 2) card-letter in hand playerturn & 
       // 3) card in hand otherplayer (should be handled here)
       // > 'move' card from otherplayerhand to playerturn hand. 
-      const selectHand = (deck, letter) => deck.filter(card => card.deckNo === letter)
+      const selectHand = (deck, playerTurnId) => deck.filter(card => card.deckNo === playerTurnId)
 
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
-          // Check whether player is allowed to ask for this card 
-          if (selectHand(state, payload.letter).length > 0){
+          if (selectHand(state, payload.deckNo).length > 0){
+            // Check whether player is allowed to ask for this card 
+
             if (item.deckNo === 0) {
               // if card in otherplayerhand > use payload card in deck 
               // (already has deckNo of current player)
@@ -35,9 +36,6 @@ export default (state = deck, {type, payload} = {}) => {
         return item
       })
       return updatedItems
-
-      // return state 
-      // break
 
     default: 
       return state  
