@@ -1,7 +1,7 @@
 import players from '../data/players'
 import { CHANGE_TURN } from '../actions/changeTurn'
 
-export default (state = players, {type} = {}) => {
+export default (state = players, {type, payload} = {}) => {
   let playerTurn = players.playerTurnID
   let player1 = players.player1
   let player2 = players.player2
