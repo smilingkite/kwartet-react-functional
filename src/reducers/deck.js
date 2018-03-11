@@ -6,11 +6,13 @@ export default (state = deck, {type, payload} = {}) => {
 
   switch(type) {
     case CHANGE_TURN: 
-      // card that CHANGE_TURN action draws randomly from deck (deckNo = 0)
-      // will be assigned to playerTurnId. 
-      // console.log('random assigned card from action', payload)
-      return state 
-      // break
+    const updatedDeck = state.map(item => {
+      if(item.letter === payload.letter && item.number === payload.number){
+        return payload
+        }
+      return item
+    })
+    return updatedDeck
 
     case ASKED_CARD:
       // change deck. conditionally:
