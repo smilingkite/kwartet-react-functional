@@ -15,6 +15,7 @@ import './App.css';
 // *) REDUX 
       // WIP: change turn works only first time. Should deal card & change turn. 
       // kwartet handling
+// *) deal with larger hands
 // *) Let computer handle player2
 // *) endgame
 //  1) change turn automatically when no more cards in hand
