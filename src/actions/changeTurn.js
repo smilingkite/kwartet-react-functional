@@ -1,8 +1,8 @@
 import store from '../store';
 
 // const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-let deck = store
-console.log('STORE', store)
+// let stored = getState
+console.log('STORE', store) // WHY undefined???
 
 // const findRandomUnassignedCard = (deck) => {
 //   if (selectHand(deck,0).length === 0) return {}
@@ -14,6 +14,8 @@ console.log('STORE', store)
 // }
 
 // const card = findRandomUnassignedCard(deck)
+
+// NB: asign to hand playerTurn???? (would help keep reducer logic simple)
 
 export const CHANGE_TURN = 'CHANGE_TURN'
 export default (card) => {

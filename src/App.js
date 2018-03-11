@@ -22,18 +22,18 @@ import './App.css';
 // *) styles keep working with large hands
 
 
-function moveCard(kaart, deck, playerId) {
-  const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
-  // verander deckNo van die kaart in playerId.
-  deck[cardIndex].deckNo = playerId;
-  return deck;
-  // *** attempt at a more functional version of this function.
-  // var deckNo = playerId
-  // deck = deck.map(c => {
-  //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
-  // })
-  // return deck;
-}
+// function moveCard(kaart, deck, playerId) {
+//   const cardIndex = (kaart.letter.charCodeAt(0) - 65) * 4 - 1 + kaart.number;
+//   // verander deckNo van die kaart in playerId.
+//   deck[cardIndex].deckNo = playerId;
+//   return deck;
+//   // *** attempt at a more functional version of this function.
+//   // var deckNo = playerId
+//   // deck = deck.map(c => {
+//   //   if (c.letter === kaart.letter && c.number === kaart.number) {return {...c, deckNo}} else {return {...c}}
+//   // })
+//   // return deck;
+// }
 
 const selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
@@ -76,8 +76,12 @@ class App extends PureComponent {
     }
     const playerTurnID = this.props.players.playerTurnID;
     const kaartuitvoer = new Card(letter, number, playerTurnID);
-    console.log(kaartuitvoer);
-    if (validCard) this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
+    console.log('in app.js', kaartuitvoer);
+    if (validCard) {
+      console.log(validCard)
+      this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
+      validCard = false;
+    }
 
     return ;
   }
@@ -135,7 +139,7 @@ class App extends PureComponent {
         // kwartetList = checkKwartet(deck, kwartetList, playerTurn);
       } else {
         console.log('De ander heeft de kaart niet')
-        this.changeTurn(card);      
+        // this.changeTurn(card);      
       }
     } else {
       // this.changeMessage('error') - also where app ends up on start app!
@@ -147,7 +151,7 @@ class App extends PureComponent {
 
   render() {
     const {askedCard, game, selectHand} = this; // functions
-    const {message, deck, card} = this.props;
+    const {message, deck} = this.props;
     const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
 
     const selectPlayerName = (playerIdNo) => {
