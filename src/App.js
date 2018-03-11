@@ -13,9 +13,7 @@ import './App.css';
 
 // WIP:
 // *) REDUX 
-      // game logic in redux???:
-      //  * change turn if user asks for card they don't have the letter of in hand
-      //  * draw random card when changing turn. 
+      // WIP: change turn works only first time. Should deal card & change turn. 
       // kwartet handling
 // *) Let computer handle player2
 // *) endgame
