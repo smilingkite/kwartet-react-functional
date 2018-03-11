@@ -1,6 +1,5 @@
 import deck from '../data/deck'
 import { ASKED_CARD } from '../actions/askedCard';
-import { CHANGE_TURN } from '../actions/changeTurn'
 
 export default (state = deck, {type, payload} = {}) => {
 
