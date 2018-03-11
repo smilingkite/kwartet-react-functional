@@ -2,9 +2,9 @@ import players from '../data/players'
 import { CHANGE_TURN } from '../actions/changeTurn'
 
 export default (state = players, {type} = {}) => {
-  let playerTurn = players.playerTurnID
-  let player1 = players.player1
-  let player2 = players.player2
+  let playerTurn = state.playerTurnID
+  let player1 = state.player1
+  let player2 = state.player2
   let newPlayerTurn, newOtherPlayer
 
   switch(type) {
