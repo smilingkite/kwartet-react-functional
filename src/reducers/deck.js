@@ -27,7 +27,10 @@ export default (state = deck, {type, payload} = {}) => {
 
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
-          if (item.deckNo === 0) return item
+          if (item.deckNo === 0) {
+            return item
+            // & change turn!
+          }
           else return payload
         }
         return item

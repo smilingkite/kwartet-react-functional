@@ -78,7 +78,6 @@ class App extends PureComponent {
     const kaartuitvoer = new Card(letter, number, playerTurnID);
     console.log('in app.js', kaartuitvoer);
     if (validCard) {
-      console.log(validCard)
       this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
       validCard = false;
     }
