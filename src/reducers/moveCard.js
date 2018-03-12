@@ -1,9 +1,9 @@
-import { ASKED_CARD } from "../actions/askedCard";
+import { MOVE_CARD } from "../actions/moveCard";
 
 export default (state = {}, {type, payload} = {}) => {
 
   switch(type) {
-    case ASKED_CARD :
+    case MOVE_CARD :
       return payload
       
     default: 

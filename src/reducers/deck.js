@@ -1,17 +1,11 @@
 import deck from '../data/deck'
-import { ASKED_CARD } from '../actions/askedCard';
+import { MOVE_CARD } from '../actions/moveCard';
 
 export default (state = deck, {type, payload} = {}) => {
 
   switch(type) {
 
-    case ASKED_CARD:
-      // change deck. conditionally:
-      // if 1) card is valid (done in app.js) &
-      // 2) card-letter in hand playerturn & 
-      // 3) card in hand otherplayer (should be handled here)
-      // > 'move' card from otherplayerhand to playerturn hand. 
- 
+    case MOVE_CARD:
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
 

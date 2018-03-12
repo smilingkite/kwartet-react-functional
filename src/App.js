@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { connect } from 'react-redux'
 import { SELECT_MESSAGE } from './actions/selectMessage'
-import { ASKED_CARD } from './actions/askedCard'
+import { MOVE_CARD } from './actions/moveCard'
 import { CHANGE_TURN } from './actions/changeTurn'
 import Card from './helpers/cardConstructor';
 import dealRandomCard from './helpers/dealRandomCard';
@@ -40,7 +40,7 @@ class App extends PureComponent {
   }
 
   dealRandomCardNow(playerTurnID, deck) {
-    this.props.dispatch({ type: ASKED_CARD, payload: dealRandomCard(playerTurnID, deck) });
+    this.props.dispatch({ type: MOVE_CARD, payload: dealRandomCard(playerTurnID, deck) });
   }
 
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
@@ -105,7 +105,7 @@ class App extends PureComponent {
         // If card not in otherplayer hand, changeTurn
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
         if (this.hasCardInHand(otherPlayerHand, kaartuitvoer)) {
-          this.props.dispatch({type: ASKED_CARD, payload: kaartuitvoer})
+          this.props.dispatch({type: MOVE_CARD, payload: kaartuitvoer})
         } else {
           this.changeTurn()
           this.dealRandomCardNow(playerTurnID, deck);

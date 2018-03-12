@@ -1,8 +1,8 @@
-export const ASKED_CARD = 'ASKED_CARD'
+export const MOVE_CARD = 'MOVE_CARD'
 
 export default (card) => {
   return {
-    type: ASKED_CARD,
+    type: MOVE_CARD,
     payload: card
   }
 }
