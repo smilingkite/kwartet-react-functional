@@ -11,5 +11,6 @@
   {"key": "errorCard", "value": "Je vraagt om een niet bestaande kaart!" },
   {"key": "kwartet", "value":  "KWARTET!" },
   {"key": "goeieGok", "value": "Goeie gok: ik heb de kaart!" },
-  {"key": "trekKaart", "value": "Je trok een kaart van de stapel, nu is de ander aan de beurt." }
+  {"key": "trekKaart", "value": "Je trok een kaart van de stapel, nu is de ander aan de beurt." },
+  {"key": "terechtVragen", "value": "Je mag deze kaart vragen." }
 ]

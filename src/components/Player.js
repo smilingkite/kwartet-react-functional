@@ -5,6 +5,7 @@ class PlayerComponent extends React.Component{
   
   render(){
     const {name, hand, kwartet, turn} = this.props; 
+
     return (
       <div className={`speler ${turn}`}>
         <h2>{name}</h2>
@@ -13,14 +14,15 @@ class PlayerComponent extends React.Component{
           <ul className="hand">
             {
               hand.map((kaart, i) => 
-                <li key={i}  className="kaart">{kaart.letter}{kaart.number}</li>
+                <li key={i}  className={(kaart.hasChanged? "hasChanged": "hasNotChanged") + " kaart"}>{kaart.letter}{kaart.number}</li>
               )
             }
           </ul>
         </div>
         <div className="kwartettenlijst">
 
-          { kwartet.length > 0 && 
+          { 
+            kwartet.length > 0 && 
             <div>
               <p>Kwartetten</p>
               <ul className="kwartetten">
