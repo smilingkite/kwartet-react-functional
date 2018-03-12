@@ -9,14 +9,9 @@ export default (state = deck, {type, payload} = {}) => {
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
 
-          if (item.deckNo === 0) {
-             // if card in otherplayerhand > use payload card in deck 
-             // (already has deckNo of current player)
-             return item
-          }
-          else return payload
+          return {...payload, hasChanged: true}
         }
-        return item
+        return {...item, hasChanged: false}
       })
       return updatedItems
 

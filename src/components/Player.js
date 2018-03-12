@@ -13,7 +13,7 @@ class PlayerComponent extends React.Component{
           <ul className="hand">
             {
               hand.map((kaart, i) => 
-                <li key={i}  className="kaart">{kaart.letter}{kaart.number}</li>
+                <li key={i}  className={(kaart.hasChanged? "hasChanged": "hasNotChanged") + " kaart"}>{kaart.letter}{kaart.number}</li>
               )
             }
           </ul>

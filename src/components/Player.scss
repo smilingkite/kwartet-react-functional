@@ -33,6 +33,11 @@ ul.hand, ul.kwartetten {
     background: $transparent-vivid-tangerine;
     padding: 1em 10px;
     margin-right: 3px;
+
+  }
+  li.hasChanged {
+    padding: 1.2em 12px;
+    font-size: 1.2em;
   }
 }
 
