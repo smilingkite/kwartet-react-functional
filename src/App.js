@@ -13,9 +13,6 @@ import Interface from './components/Interface';
 import './App.css';
 
 // WIP:
-// *) REDUX 
-      // FIX: change turn works only first time. Should deal card & change turn. 
-      // kwartet handling
 // *) deal with larger hands
 // *) Let computer handle player2
 // *) endgame
@@ -32,13 +29,8 @@ class App extends PureComponent {
   changeMessage = (message) => {
     this.props.dispatch({type: SELECT_MESSAGE, payload: message})
   }
-
-  changeTurn = () => {
-    this.props.dispatch({type: CHANGE_TURN})
-  }
   
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
-  // selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo)
 
   checkKwartet = (hand, playerID) => {
     let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
@@ -63,7 +55,10 @@ class App extends PureComponent {
     }
   }
 
-  dealRandomCardNow(playerTurnID, deck) {
+  onChangeTurn(deck, playerTurnID, otherPlayerID) {
+    this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
+    this.checkKwartet(this.selectHand(deck, otherPlayerID), otherPlayerID);
+    this.props.dispatch({type: CHANGE_TURN})
     this.props.dispatch({ type: MOVE_CARD, payload: dealRandomCard(playerTurnID, deck) });
   }
 
@@ -98,9 +93,7 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
       this.changeMessage('errorLetter');
-      this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
-      this.changeTurn()
-      this.dealRandomCardNow(playerTurnID, deck);
+      this.onChangeTurn(deck, playerTurnID, otherPlayerID);
       validCard = false;
     }
     try {
@@ -109,9 +102,7 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
-      this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
-      this.changeTurn()
-      this.dealRandomCardNow(playerTurnID, deck);
+      this.onChangeTurn(deck, playerTurnID, otherPlayerID);
       validCard = false;
     }
     const kaartuitvoer = new Card(letter, number, playerTurnID);
@@ -120,9 +111,7 @@ class App extends PureComponent {
     if (validCard) {
       if (!this.isLegitAskedCard(deck, playerTurnID, kaartuitvoer)) {
         this.changeMessage('beurtWissel');
-        this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
-        this.changeTurn()
-        this.dealRandomCardNow(playerTurnID, deck);
+        this.onChangeTurn(deck, playerTurnID, otherPlayerID);
       } else {
         // If card not in otherplayer hand, changeTurn
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
@@ -131,9 +120,7 @@ class App extends PureComponent {
           this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
         } else {
           this.changeMessage('beurtWissel');
-          this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
-          this.changeTurn()
-          this.dealRandomCardNow(playerTurnID, deck);
+          this.onChangeTurn(deck, playerTurnID, otherPlayerID);
         }
         validCard = false;
       }
