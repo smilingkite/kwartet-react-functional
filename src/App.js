@@ -41,17 +41,15 @@ class App extends PureComponent {
   // selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo)
 
   checkKwartet = (hand, playerID) => {
-    console.log('check kwartet: hand', hand)
+    // console.log('check kwartet: hand', hand)
     let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
 
     const letters = ["A", "B", "C", "D", "E", "F", "G"]
 
     for (let i = 0; i < letters.length; i++){
       let letter = letters[i];
-      console.log('checkKwartet > selectLetter array: ' ,selectLetter(hand,letter))
+      // console.log('checkKwartet > selectLetter array: ' ,selectLetter(hand,letter))
       if (selectLetter(hand,letter).length > 3) {
-        // move cards with that letter from hand to '9'
-
         for (let i = 1; i < 5; i++){
           let kaart = {};
           kaart.letter = letter;
@@ -72,11 +70,9 @@ class App extends PureComponent {
   }
 
   isLegitAskedCard = (deck, handNo, card) => {
-    // console.log('in isLegitAskedCard')
     let hand = this.selectHand(deck,handNo)
-    // console.log(hand)
     let cardType = hand.filter(c=> c.letter === card.letter)
-    // console.log('selected by letter', (cardType.length > 0))
+
     if (cardType.length > 0) return true
     else return false
   }
@@ -90,7 +86,6 @@ class App extends PureComponent {
   }
 
   game(card) {
-    // turns string answer into card object
     card = card.toUpperCase();
     let validCard = true;
     const letterRegex = /[A-G]/;
