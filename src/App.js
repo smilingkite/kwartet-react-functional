@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { SELECT_MESSAGE } from './actions/selectMessage'
 import { MOVE_CARD } from './actions/moveCard'
 import { CHANGE_TURN } from './actions/changeTurn'
+import { CHECK_KWARTET } from './actions/checkKwartet'
 import Card from './helpers/cardConstructor';
 import dealRandomCard from './helpers/dealRandomCard';
 import PlayerComponent from './components/Player';
@@ -37,9 +38,33 @@ class App extends PureComponent {
   }
   
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+  // selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo)
 
-  checkKwartet = (hand) => {
+  checkKwartet = (hand, playerID) => {
     console.log('check kwartet: hand', hand)
+    let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
+
+    const letters = ["A", "B", "C", "D", "E", "F", "G"]
+
+    for (let i = 0; i < letters.length; i++){
+      let letter = letters[i];
+      console.log('checkKwartet > selectLetter array: ' ,selectLetter(hand,letter))
+      if (selectLetter(hand,letter).length > 3) {
+        // move cards with that letter from hand to '9'
+
+        for (let i = 1; i < 5; i++){
+          let kaart = {};
+          kaart.letter = letter;
+          kaart.number = i;
+          kaart.deckNo = 9
+          this.props.dispatch({type: MOVE_CARD, payload: kaart})
+        }
+        let kwartetLetter = {}
+        kwartetLetter.letter = letter
+        kwartetLetter.deckNo = playerID
+        this.props.dispatch({type: CHECK_KWARTET, payload: kwartetLetter})
+      }
+    }
   }
 
   dealRandomCardNow(playerTurnID, deck) {
@@ -110,8 +135,7 @@ class App extends PureComponent {
           this.props.dispatch({type: MOVE_CARD, payload: kaartuitvoer})
         } else {
           this.changeMessage('beurtWissel');
-          console.log('select Hand ',this.selectHand(deck, playerTurnID));
-          this.checkKwartet(this.selectHand(deck, playerTurnID));
+          this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
           this.changeTurn()
           this.dealRandomCardNow(playerTurnID, deck);
         }
@@ -146,12 +170,14 @@ class App extends PureComponent {
             turn={true} 
             hand ={selectHand(deck, playerTurnID)} 
             name = {selectPlayerName(playerTurnID)} 
+            kwartet = {selectHand(kwartetList, playerTurnID)}
           />
           <PlayerComponent 
             key={2} 
             turn={false} 
             hand ={selectHand(deck, otherPlayerID)} 
             name = {selectPlayerName(otherPlayerID)} 
+            kwartet = {selectHand(kwartetList, otherPlayerID)}
           />
         </div> 
       </div>
