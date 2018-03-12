@@ -41,19 +41,17 @@ class App extends PureComponent {
   // selectKwartet = (kwartetList, handNo) => kwartetList.filter(card => card.deckNo === handNo)
 
   checkKwartet = (hand, playerID) => {
-    // console.log('check kwartet: hand', hand)
     let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
-
     const letters = ["A", "B", "C", "D", "E", "F", "G"]
 
     for (let i = 0; i < letters.length; i++){
       let letter = letters[i];
-      // console.log('checkKwartet > selectLetter array: ' ,selectLetter(hand,letter))
+
       if (selectLetter(hand,letter).length > 3) {
-        for (let i = 1; i < 5; i++){
+        for (let j = 1; j < 5; j++){
           let kaart = {};
           kaart.letter = letter;
-          kaart.number = i;
+          kaart.number = j;
           kaart.deckNo = 9
           this.props.dispatch({type: MOVE_CARD, payload: kaart})
         }
@@ -100,6 +98,7 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldige letter op.');
       this.changeMessage('errorLetter');
+      this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
       this.changeTurn()
       this.dealRandomCardNow(playerTurnID, deck);
       validCard = false;
@@ -110,7 +109,7 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
-
+      this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
       this.changeTurn()
       this.dealRandomCardNow(playerTurnID, deck);
       validCard = false;
@@ -121,6 +120,7 @@ class App extends PureComponent {
     if (validCard) {
       if (!this.isLegitAskedCard(deck, playerTurnID, kaartuitvoer)) {
         this.changeMessage('beurtWissel');
+        this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
         this.changeTurn()
         this.dealRandomCardNow(playerTurnID, deck);
       } else {
@@ -128,6 +128,7 @@ class App extends PureComponent {
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
         if (this.hasCardInHand(otherPlayerHand, kaartuitvoer)) {
           this.props.dispatch({type: MOVE_CARD, payload: kaartuitvoer})
+          this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
         } else {
           this.changeMessage('beurtWissel');
           this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
