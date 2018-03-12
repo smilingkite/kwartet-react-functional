@@ -21,9 +21,6 @@ import './App.css';
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
 
-// const letters = ["A", "B", "C", "D", "E", "F", "G"]
-// let kwartetList = makeKwartetList(letters, [])
-
 class App extends PureComponent {
 
   constructor(props) {
@@ -38,12 +35,16 @@ class App extends PureComponent {
   changeTurn = () => {
     this.props.dispatch({type: CHANGE_TURN})
   }
+  
+  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
+
+  checkKwartet = (hand) => {
+    console.log('check kwartet: hand', hand)
+  }
 
   dealRandomCardNow(playerTurnID, deck) {
     this.props.dispatch({ type: MOVE_CARD, payload: dealRandomCard(playerTurnID, deck) });
   }
-
-  selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)
 
   isLegitAskedCard = (deck, handNo, card) => {
     // console.log('in isLegitAskedCard')
@@ -55,7 +56,7 @@ class App extends PureComponent {
     else return false
   }
 
-  hasCardInHand = (hand, kaartuitvoer) =>{
+  hasCardInHand = (hand, kaartuitvoer) => {
     let letter = kaartuitvoer.letter
     let number = kaartuitvoer.number
 
@@ -89,16 +90,17 @@ class App extends PureComponent {
     } catch (e) {
       console.log('Je gaf geen geldig nummer op.');
       this.changeMessage('errorNumber');
+
       this.changeTurn()
       this.dealRandomCardNow(playerTurnID, deck);
       validCard = false;
     }
     const kaartuitvoer = new Card(letter, number, playerTurnID);
-    console.log('in app.js', kaartuitvoer);
 
     // also check of allowed to ask for card, in order to change turn if not.
     if (validCard) {
       if (!this.isLegitAskedCard(deck, playerTurnID, kaartuitvoer)) {
+        this.changeMessage('beurtWissel');
         this.changeTurn()
         this.dealRandomCardNow(playerTurnID, deck);
       } else {
@@ -107,6 +109,9 @@ class App extends PureComponent {
         if (this.hasCardInHand(otherPlayerHand, kaartuitvoer)) {
           this.props.dispatch({type: MOVE_CARD, payload: kaartuitvoer})
         } else {
+          this.changeMessage('beurtWissel');
+          console.log('select Hand ',this.selectHand(deck, playerTurnID));
+          this.checkKwartet(this.selectHand(deck, playerTurnID));
           this.changeTurn()
           this.dealRandomCardNow(playerTurnID, deck);
         }
