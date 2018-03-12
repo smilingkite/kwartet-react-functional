@@ -119,7 +119,7 @@ class App extends PureComponent {
 
   render() {
     const {game, selectHand} = this; // functions
-    const {message, deck} = this.props;
+    const {message, deck, kwartet} = this.props;
     const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
 
     const selectPlayerName = (playerIdNo) => {
@@ -154,8 +154,8 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ message, deck, players, askedCard }) => ({
-  message, deck, players, askedCard
+const mapStateToProps = ({ message, deck, players, askedCard, kwartet }) => ({
+  message, deck, players, askedCard, kwartet
 })
 
 export default connect(mapStateToProps)(App);
