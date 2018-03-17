@@ -1,11 +1,11 @@
 import React, {
   PureComponent
 } from 'react';
-import { connect } from 'react-redux'
-import { SELECT_MESSAGE } from './actions/selectMessage'
-import { MOVE_CARD } from './actions/moveCard'
-import { CHANGE_TURN } from './actions/changeTurn'
-import { CHECK_KWARTET } from './actions/checkKwartet'
+import { connect } from 'react-redux';
+import { SELECT_MESSAGE } from './actions/selectMessage';
+import { MOVE_CARD } from './actions/moveCard';
+import { CHANGE_TURN } from './actions/changeTurn';
+import { CHECK_KWARTET } from './actions/checkKwartet';
 import Card from './helpers/cardConstructor';
 import dealRandomCard from './helpers/dealRandomCard';
 import PlayerComponent from './components/Player';
