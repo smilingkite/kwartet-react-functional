@@ -26,23 +26,23 @@ ul.hand, ul.kwartetten {
   margin: 1em 0;
   min-height: 1em;
 
-  // .example-enter {
-  //   opacity: 0.01;
-  //   padding: 1.2em 12px;
-  //   font-size: 1.2em;
-  // }
-  // .example-enter.example-enter-active {
-  //   opacity: 1;
-  //   transition: opacity 500ms ease-in;
-  // }
-  // .example-leave {
-  //   opacity: 1;
-  // }
-  
-  // .example-leave.example-leave-active {
-  //   opacity: 0.01;
-  //   transition: opacity 300ms ease-in;
-  // }
+  .example-enter {
+    opacity: 0.01;
+    // padding: 1.2em 12px;
+    // font-size: 1.2em;
+  }
+  .example-enter.example-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms ease-in;
+  }
+  .example-leave {
+    opacity: 1;
+  }
+  .example-leave.example-leave-active {
+    opacity: 0.01;
+    transition: opacity 3000ms ease-in;
+  }
+
   li.kaart, li.kwartet {
     display: inline-block;
     border: 2px solid $vivid-tangerine;
@@ -58,6 +58,11 @@ ul.hand, ul.kwartetten {
   li.hasChanged {
     padding: 1.2em 12px;
     font-size: 1.2em;
+  }
+  li.hasChanged.kwartet {
+    padding: 1em 10px;
+    font-size: 1em;
+    // font-weight: 800;
   }
 }
 
