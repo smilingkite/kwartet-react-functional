@@ -28,8 +28,6 @@ ul.hand, ul.kwartetten {
 
   .example-enter {
     opacity: 0.01;
-    // padding: 1.2em 12px;
-    // font-size: 1.2em;
   }
   .example-enter.example-enter-active {
     opacity: 1;
@@ -62,7 +60,6 @@ ul.hand, ul.kwartetten {
   li.hasChanged.kwartet {
     padding: 1em 10px;
     font-size: 1em;
-    // font-weight: 800;
   }
 }
 
