@@ -8,9 +8,9 @@ export default (state = kwartetList, {type, payload} = {}) => {
     case CHECK_KWARTET:
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter){
-          return {...payload}
+          return {...payload, hasChanged: true}
         }
-        return item
+        return {...item, hasChanged: false}
       })
       return updatedItems
 
