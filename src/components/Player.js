@@ -15,18 +15,17 @@ class PlayerComponent extends React.Component{
         <h2>{name}</h2>
         <div className="kaarten">
           <p>Kaarten</p>
-          <ul className="hand">
           <CSSTransitionGroup
+            component="ul" className="hand"
             transitionName="example"
             transitionEnterTimeout={1000}
             transitionLeaveTimeout={1000}>
             {
               hand.map((kaart, i) => 
-                <li key={i}  className={(kaart.hasChanged? "hasChanged": "hasNotChanged") + " kaart"}>{kaart.letter}{kaart.number}</li>
+                <li key={i}  className={(kaart.hasChanged? "hasChanged": "") + " kaart"}>{kaart.letter}{kaart.number}</li>
               )
             }
-            </CSSTransitionGroup>
-          </ul>
+          </CSSTransitionGroup>
         </div>
         <div className="kwartettenlijst">
 

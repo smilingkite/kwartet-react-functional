@@ -133,7 +133,7 @@ class App extends PureComponent {
   render() {
     const {game, selectHand} = this; // functions
     const {message, deck, kwartetList} = this.props;
-    const {otherPlayerID, playerTurnID, player1, player2} = this.props.players;
+    const {playerTurnID, player1, player2} = this.props.players;
 
     const selectPlayerName = (playerIdNo) => {
       if (playerIdNo === 1) return player1.name
@@ -151,17 +151,17 @@ class App extends PureComponent {
         <div className = "Game" > 
           <PlayerComponent 
             key={1} 
-            turn={true} 
-            hand ={selectHand(deck, playerTurnID)} 
-            name = {selectPlayerName(playerTurnID)} 
-            kwartet = {selectHand(kwartetList, playerTurnID)}
+            turn={playerTurnID === 1} 
+            hand ={selectHand(deck, 1)} 
+            name = {selectPlayerName(1)} 
+            kwartet = {selectHand(kwartetList, 1)}
           />
           <PlayerComponent 
             key={2} 
-            turn={false} 
-            hand ={selectHand(deck, otherPlayerID)} 
-            name = {selectPlayerName(otherPlayerID)} 
-            kwartet = {selectHand(kwartetList, otherPlayerID)}
+            turn={playerTurnID === 2} 
+            hand ={selectHand(deck, 2)} 
+            name = {selectPlayerName(2)} 
+            kwartet = {selectHand(kwartetList, 2)}
           />
         </div> 
       </div>
