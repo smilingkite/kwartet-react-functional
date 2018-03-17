@@ -1,4 +1,8 @@
 import './Player.css';
+import { CSSTransitionGroup } from 'react-transition-group'
+
+
+
 var React = require('react');
 
 class PlayerComponent extends React.Component{
@@ -12,11 +16,16 @@ class PlayerComponent extends React.Component{
         <div className="kaarten">
           <p>Kaarten</p>
           <ul className="hand">
+          <CSSTransitionGroup
+            transitionName="example"
+            transitionEnterTimeout={1000}
+            transitionLeaveTimeout={1000}>
             {
               hand.map((kaart, i) => 
                 <li key={i}  className={(kaart.hasChanged? "hasChanged": "hasNotChanged") + " kaart"}>{kaart.letter}{kaart.number}</li>
               )
             }
+            </CSSTransitionGroup>
           </ul>
         </div>
         <div className="kwartettenlijst">

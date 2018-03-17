@@ -2,6 +2,7 @@ import React, {
   PureComponent
 } from 'react';
 import { connect } from 'react-redux';
+
 import { SELECT_MESSAGE } from './actions/selectMessage';
 import { MOVE_CARD } from './actions/moveCard';
 import { CHANGE_TURN } from './actions/changeTurn';
