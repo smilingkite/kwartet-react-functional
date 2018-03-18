@@ -9,6 +9,7 @@ const Interface = ({onNewCard=f=>f}) => {
     e.preventDefault();
     let kaart = _kaart.letters.value + _kaart.cijfers.value
     onNewCard(kaart);
+    e.target.reset();
   };
   const handleChange = e => {
     _kaart[e.target.name]= e.target.value;
