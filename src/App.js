@@ -117,6 +117,7 @@ class App extends PureComponent {
         // If card not in otherplayer hand, changeTurn
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
         if (this.hasCardInHand(otherPlayerHand, kaartuitvoer)) {
+          this.changeMessage('goeieGok')
           this.props.dispatch({type: MOVE_CARD, payload: kaartuitvoer})
           this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
         } else {
