@@ -1,5 +1,5 @@
 [
-  {"key": "beurt", "value": "Je bent aan de beurt. Geef letter en nummer van de kaart die je wilt vragen:" },
+  {"key": "beurt", "value": "Je bent aan de beurt. Geef letter en nummer van de kaart die je wilt vragen. Je mag alleen vragen om kaarten waarvan je de LETTER al in je hand hebt:" },
   {"key": "geenkaarten", "value":  "Er zijn geen kaarten meer!" },
   {"key": "EndGame", "value": "Het spel is afgelopen!" },
   {"key": "gelijkspel", "value": "Gelijk spel!" },
