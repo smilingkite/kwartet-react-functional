@@ -8,7 +8,7 @@
   margin: 1em;
   padding: 1em;
   background: $old-lace;
-  min-width: 45%; 
+  width: 45%; 
   float: left;
 }
 
@@ -48,6 +48,7 @@ ul.hand, ul.kwartetten {
     background: $transparent-vivid-tangerine;
     padding: 1em 10px;
     margin-right: 3px;
+    margin-bottom: 3px;
     -webkit-transition: 1s;
     -moz-transition:1s;
     -o-transition:1s;
@@ -73,4 +74,10 @@ ul.hand, ul.kwartetten {
     transparentize($color: $black, $amount: 0.4) 10px,
     transparentize($color: $black, $amount: 0.1) 10px
   )
+}
+
+@media only screen and (max-width: 650px) {
+  .speler {
+    width: 90%;
+  }
 }
