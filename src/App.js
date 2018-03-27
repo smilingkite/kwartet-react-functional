@@ -14,8 +14,6 @@ import Interface from './components/Interface';
 import './App.css';
 
 // WIP:
-// *) deal with larger hands
-// *) Let computer handle player2
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
@@ -67,8 +65,9 @@ class App extends PureComponent {
     let hand = this.selectHand(deck,handNo)
     let cardType = hand.filter(c=> c.letter === card.letter)
 
-    if (cardType.length > 0) return true
-    else return false
+    return cardType.length > 0
+    // if (cardType.length > 0) return true
+    // else return false
   }
 
   hasCardInHand = (hand, kaartuitvoer) => {
