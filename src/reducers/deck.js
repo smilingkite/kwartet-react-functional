@@ -1,5 +1,6 @@
 import deck from '../data/deck'
 import { MOVE_CARD } from '../actions/moveCard';
+// import { CHECK_KWARTET } from '../actions/checkKwartet';
 
 export default (state = deck, {type, payload} = {}) => {
 
@@ -14,7 +15,8 @@ export default (state = deck, {type, payload} = {}) => {
         return {...item, hasChanged: false}
       })
       return updatedItems
-
+    // case CHECK_KWARTET:
+    //   return state
     default: 
       return state  
   }

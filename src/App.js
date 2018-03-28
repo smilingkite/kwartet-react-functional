@@ -66,8 +66,6 @@ class App extends PureComponent {
     let cardType = hand.filter(c=> c.letter === card.letter)
 
     return cardType.length > 0
-    // if (cardType.length > 0) return true
-    // else return false
   }
 
   hasCardInHand = (hand, kaartuitvoer) => {
