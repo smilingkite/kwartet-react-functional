@@ -14,6 +14,7 @@ import letters from './data/letters'
 import './App.css';
 
 // WIP:
+// *) messages use game info (playername or card asked)
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
