@@ -26,17 +26,17 @@ ul.hand, ul.kwartetten {
   margin: 1em 0;
   min-height: 1em;
 
-  .example-enter {
+  .kwartet-enter {
     opacity: 0.01;
   }
-  .example-enter.example-enter-active {
+  .kwartet-enter.kwartet-enter-active {
     opacity: 1;
     transition: opacity 1000ms ease-in;
   }
-  .example-leave {
+  .kwartet-leave {
     opacity: 1;
   }
-  .example-leave.example-leave-active {
+  .kwartet-leave.kwartet-leave-active {
     opacity: 0.01;
     transition: opacity 3000ms ease-in;
   }
@@ -57,16 +57,19 @@ ul.hand, ul.kwartetten {
   li.hasChanged.kwartet {
     padding: 1em 10px;
     font-size: 1em;
+    -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+    -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+    box-shadow: 0px 0px 38px 5px $vivid-tangerine;
   }
 }
 
-.true li.hasChanged {
+.hasTurn li.hasChanged {
   -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
   -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
   box-shadow: 0px 0px 38px 5px $vivid-tangerine;
 }
 
-.false .kaarten ul.hand li.kaart {
+.notHasTurn .kaarten ul.hand li.kaart {
   color: $transparent; 
   background: repeating-linear-gradient(
     45deg,

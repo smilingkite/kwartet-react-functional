@@ -9,7 +9,7 @@ class PlayerComponent extends React.Component{
     const {name, hand, kwartet, turn} = this.props; 
 
     return (
-      <div className={`speler ${turn}`}>
+      <div className={`speler ${(turn? "hasTurn" : "notHasTurn")}`}>
         <h2>{name}</h2>
         <div className="kaarten">
           <p>Kaarten</p>
@@ -25,7 +25,7 @@ class PlayerComponent extends React.Component{
           <p>Kwartetten</p>
           <CSSTransitionGroup
             component="ul" className="kwartetten"
-            transitionName="example"
+            transitionName="kwartet"
             transitionEnterTimeout={1000}
             transitionLeaveTimeout={1000}>
             {
