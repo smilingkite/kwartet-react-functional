@@ -13,23 +13,12 @@ import Interface from './components/Interface';
 import letters from './data/letters'
 import './App.css';
 
-// WIP:
-// *) messages use game info (playername or card asked)
-// *) dispatch actions 'thenable' to i.e. check for kwartet right after card changes hand. 
-// *) endgame
-//  1) change turn automatically when no more cards in hand
-//  2) popover with result & no more input option 
-
 class App extends PureComponent {
 
   constructor(props) {
     super(props);
     this.game = this.game.bind(this);
   }
-
-  // changeMessage = (message) => {
-  //   this.props.dispatch({type: SELECT_MESSAGE, payload: message})
-  // }
 
   changeMessage = (message, extra) => {
     let MessageObjectArray = messages.filter((m) => m.key === message)
@@ -115,11 +104,6 @@ class App extends PureComponent {
     const {game, selectHand, selectPlayerName} = this; // functions
     const {message, deck, kwartetList} = this.props;
     const {playerTurnID} = this.props.players;
-
-    // const selectPlayerName = (playerIdNo) => {
-    //   if (playerIdNo === 1) return player1.name
-    //   else return player2.name
-    // }
 
     return ( 
       <div className = "App" >
