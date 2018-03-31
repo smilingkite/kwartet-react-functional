@@ -140,8 +140,13 @@ class App extends PureComponent {
   }
 }
 
+// const mapDispatchToProps = (dispatch) => ({
+//   checkKwartet(selectHand(deck, playerTurnID), playerTurnID);
+//   })
+
 const mapStateToProps = ({ message, deck, players, askedCard, kwartetList }) => ({
   message, deck, players, askedCard, kwartetList
 })
 
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
 export default connect(mapStateToProps)(App);
