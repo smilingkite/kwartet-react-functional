@@ -7,7 +7,9 @@ const Interface = ({onNewCard=f=>f}) => {
 
   const submit = e => {
     e.preventDefault();
-    let kaart = _kaart.letters.value + _kaart.cijfers.value
+    let kaart = {}
+    kaart.letter = _kaart.letters.value;
+    kaart.number = parseInt(_kaart.cijfers.value, 10);
     onNewCard(kaart);
     e.target.reset();
   };
@@ -15,7 +17,6 @@ const Interface = ({onNewCard=f=>f}) => {
     _kaart[e.target.name]= e.target.value;
   };
 
-  
   return (
     <div className="interface">
       <form onSubmit={submit}  ref={input => _kaart = input}>

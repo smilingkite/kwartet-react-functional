@@ -7,7 +7,7 @@ import { SELECT_MESSAGE } from './actions/selectMessage';
 import { MOVE_CARD } from './actions/moveCard';
 import { CHANGE_TURN } from './actions/changeTurn';
 import { CHECK_KWARTET } from './actions/checkKwartet';
-import Card from './helpers/cardConstructor';
+// import Card from './helpers/cardConstructor';
 import dealRandomCard from './helpers/dealRandomCard';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
@@ -64,50 +64,29 @@ class App extends PureComponent {
   isLegitAskedCard = (deck, handNo, card) => {
     let hand = this.selectHand(deck,handNo)
     let cardType = hand.filter(c=> c.letter === card.letter)
-
     return cardType.length > 0
   }
 
   hasCardInHand = (hand, kaartuitvoer) => {
     let letter = kaartuitvoer.letter
     let number = kaartuitvoer.number
-
-    if (hand.filter(card => card.letter === letter && card.number === number).length > 0) return true
+    if (hand.filter(card => (card.letter === letter && card.number === number)).length > 0) return true
     return false
   }
 
   game(card) {
-    card = card.toUpperCase();
     let validCard = true;
-    const letterRegex = /[A-G]/;
-    const numberRegex = /[1-4]/;
     const playerTurnID = this.props.players.playerTurnID;
     const otherPlayerID = this.props.players.otherPlayerID;
     const deck = this.props.deck;
 
-    try {
-      var letter = letterRegex.exec(card);
-      letter = letter[0];
-    } catch (e) {
-      console.log('Je gaf geen geldige letter op.');
-      this.changeMessage('errorLetter');
-      this.onChangeTurn(deck, playerTurnID, otherPlayerID);
-      validCard = false;
-    }
-    try {
-      var number = numberRegex.exec(card);
-      number = parseInt(number[0], 10);
-    } catch (e) {
-      console.log('Je gaf geen geldig nummer op.');
-      this.changeMessage('errorNumber');
-      this.onChangeTurn(deck, playerTurnID, otherPlayerID);
-      validCard = false;
-    }
-    const kaartuitvoer = new Card(letter, number, playerTurnID);
+    const kaartuitvoer = card 
+    kaartuitvoer.deckNo = playerTurnID
 
     // also check of allowed to ask for card, in order to change turn if not.
     if (validCard) {
       if (!this.isLegitAskedCard(deck, playerTurnID, kaartuitvoer)) {
+
         this.changeMessage('beurtWissel');
         this.onChangeTurn(deck, playerTurnID, otherPlayerID);
       } else {
