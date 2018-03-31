@@ -7,7 +7,6 @@ import { SELECT_MESSAGE } from './actions/selectMessage';
 import { MOVE_CARD } from './actions/moveCard';
 import { CHANGE_TURN } from './actions/changeTurn';
 import { CHECK_KWARTET } from './actions/checkKwartet';
-// import Card from './helpers/cardConstructor';
 import dealRandomCard from './helpers/dealRandomCard';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
@@ -39,13 +38,6 @@ class App extends PureComponent {
       let letter = letters[i];
 
       if (selectLetter(hand,letter).length > 3) {
-        for (let j = 1; j < 5; j++){
-          let kaart = {};
-          kaart.letter = letter;
-          kaart.number = j;
-          kaart.deckNo = 9
-          this.props.dispatch({type: MOVE_CARD, payload: kaart})
-        }
         let kwartetLetter = {}
         kwartetLetter.letter = letter
         kwartetLetter.deckNo = playerID
