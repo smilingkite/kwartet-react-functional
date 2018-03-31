@@ -9,7 +9,6 @@ export default (state = deck, {type, payload} = {}) => {
     case MOVE_CARD:
       const updatedItems = state.map(item => {
         if(item.letter === payload.letter && item.number === payload.number){
-
           return {...payload, hasChanged: true}
         }
         return {...item, hasChanged: false}
@@ -18,10 +17,10 @@ export default (state = deck, {type, payload} = {}) => {
 
     case CHECK_KWARTET:
       const updateKwartet = state.map(item => {
-      if(item.letter === payload.letter){
-        return {...payload, deckNo: 9}
-      }
-      return {...item, hasChanged: false}
+        if(item.letter === payload.letter){
+          return {...payload, deckNo: 9}
+        }
+        return {...item}
       })
       return updateKwartet
 
