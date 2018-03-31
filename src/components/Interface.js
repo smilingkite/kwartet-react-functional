@@ -1,9 +1,9 @@
 import './Interface.css';
+import letters from '../data/letters'
 var React = require('react');
 
 const Interface = ({onNewCard=f=>f}) => {
   let _kaart;
-  const letters = ["A", "B", "C", "D", "E", "F", "G"]
 
   const submit = e => {
     e.preventDefault();

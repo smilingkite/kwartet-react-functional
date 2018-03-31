@@ -1,5 +1,6 @@
 import Card from '../helpers/cardConstructor';
 import dealCard from '../helpers/dealCard';
+import letters from './letters'
 
 function deckCards(deck) {
   for (let i = 0; i < 7; i++) {
@@ -11,7 +12,6 @@ function deckCards(deck) {
   return deck
 }
 
-const letters = ["A", "B", "C", "D", "E", "F", "G"]
 var deck = deckCards([])
 
 const dealCards = (player, deck, no) => {

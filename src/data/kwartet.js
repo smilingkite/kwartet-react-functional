@@ -1,7 +1,8 @@
 // import Card from '../helpers/cardConstructor';
 // import dealCard from '../helpers/dealCard';
 
-const letters = ["A", "B", "C", "D", "E", "F", "G"]
+import letters from './letters'
+
 const makeKwartetList = (letters, kwartetList) => {
   for (let i=0; i<7; i++){
     const card = {};

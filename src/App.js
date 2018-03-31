@@ -11,6 +11,7 @@ import Card from './helpers/cardConstructor';
 import dealRandomCard from './helpers/dealRandomCard';
 import PlayerComponent from './components/Player';
 import Interface from './components/Interface';
+import letters from './data/letters'
 import './App.css';
 
 // WIP:
@@ -33,7 +34,6 @@ class App extends PureComponent {
 
   checkKwartet = (hand, playerID) => {
     let selectLetter = (hand, letter) => hand.filter(card => card.letter === letter);
-    const letters = ["A", "B", "C", "D", "E", "F", "G"]
 
     for (let i = 0; i < letters.length; i++){
       let letter = letters[i];

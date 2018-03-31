@@ -54,15 +54,17 @@ ul.hand, ul.kwartetten {
     -o-transition:1s;
     transition:1s;
   }
-  li.hasChanged {
-    -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-    -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-    box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-  }
-  li.hasChanged.kwartet {
-    padding: 1em 10px;
-    font-size: 1em;
-  }
+
+}
+
+.true li.hasChanged {
+  -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+  -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+  box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+}
+.true li.hasChanged.kwartet {
+  padding: 1em 10px;
+  font-size: 1em;
 }
 
 .false .kaarten ul.hand li.kaart {
