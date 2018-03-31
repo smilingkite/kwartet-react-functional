@@ -97,8 +97,6 @@ class App extends PureComponent {
         validCard = false;
       }
     }
-
-    // return ;
   }
 
   render() {
