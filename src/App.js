@@ -15,6 +15,7 @@ import './App.css';
 
 // WIP:
 // *) messages use game info (playername or card asked)
+// *) dispatch actions 'thenable' to i.e. check for kwartet right after card changes hand. 
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
