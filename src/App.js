@@ -98,7 +98,7 @@ class App extends PureComponent {
       }
     }
 
-    return ;
+    // return ;
   }
 
   render() {
