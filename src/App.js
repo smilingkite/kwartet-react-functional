@@ -13,12 +13,6 @@ import Interface from './components/Interface';
 import letters from './data/letters'
 import './App.css';
 
-// WIP:
-// *) ??? dispatch actions 'thenable' to i.e. check for kwartet right after card changes hand. 
-// *) endgame
-//  1) change turn automatically when no more cards in hand
-//  2) popover with result & no more input option 
-
 class App extends PureComponent {
 
   constructor(props) {
@@ -140,13 +134,8 @@ class App extends PureComponent {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   checkKwartet(selectHand(deck, playerTurnID), playerTurnID);
-//   })
-
 const mapStateToProps = ({ message, deck, players, askedCard, kwartetList }) => ({
   message, deck, players, askedCard, kwartetList
 })
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
 export default connect(mapStateToProps)(App);
