@@ -7,10 +7,10 @@
   {"key": "errorLetter", "value": "Je gaf geen geldige letter op." },
   {"key": "errorNumber", "value": "Je gaf geen nummer op." },
   {"key": "error", "value": "Die kaart mag je niet vragen."},
-  {"key": "beurtWissel", "value": "De beurt is gewisseld."},
+  {"key": "beurtWissel", "value": "De beurt is gewisseld. XXX is aan de beurt!"},
   {"key": "errorCard", "value": "Je vraagt om een niet bestaande kaart!" },
   {"key": "kwartet", "value":  "KWARTET!" },
-  {"key": "goeieGok", "value": "Goeie gok: ik heb de kaart!" },
+  {"key": "goeieGok", "value": "Goeie gok: XXX had de kaart, nu is hij van jou!" },
   {"key": "trekKaart", "value": "Je trok een kaart van de stapel, nu is de ander aan de beurt." },
   {"key": "terechtVragen", "value": "Je mag deze kaart vragen." }
 ]
