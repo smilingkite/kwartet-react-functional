@@ -14,6 +14,8 @@ import letters from './data/letters'
 import './App.css';
 
 // WIP:
+// *) messages use game info (playername or card asked)
+// *) dispatch actions 'thenable' to i.e. check for kwartet right after card changes hand. 
 // *) endgame
 //  1) change turn automatically when no more cards in hand
 //  2) popover with result & no more input option 
@@ -47,10 +49,10 @@ class App extends PureComponent {
   }
 
   onChangeTurn(deck, playerTurnID, otherPlayerID) {
-    this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
-    this.checkKwartet(this.selectHand(deck, otherPlayerID), otherPlayerID);
-    this.props.dispatch({type: CHANGE_TURN})
-    this.props.dispatch({ type: MOVE_CARD, payload: dealRandomCard(playerTurnID, deck) });
+    this.props.dispatch({ type: MOVE_CARD, payload: dealRandomCard(playerTurnID, deck) })
+    this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID)
+    this.checkKwartet(this.selectHand(deck, otherPlayerID), otherPlayerID)
+    this.props.dispatch({ type: CHANGE_TURN})
   }
 
   isLegitAskedCard = (deck, handNo, card) => {
@@ -78,15 +80,14 @@ class App extends PureComponent {
     // also check of allowed to ask for card, in order to change turn if not.
     if (validCard) {
       if (!this.isLegitAskedCard(deck, playerTurnID, kaartuitvoer)) {
-
         this.changeMessage('beurtWissel');
         this.onChangeTurn(deck, playerTurnID, otherPlayerID);
       } else {
         // If card not in otherplayer hand, changeTurn
         let otherPlayerHand = this.selectHand(deck, otherPlayerID)
         if (this.hasCardInHand(otherPlayerHand, kaartuitvoer)) {
-          this.changeMessage('goeieGok')
           this.props.dispatch({type: MOVE_CARD, payload: kaartuitvoer})
+          this.changeMessage('goeieGok')
           this.checkKwartet(this.selectHand(deck, playerTurnID), playerTurnID);
         } else {
           this.changeMessage('beurtWissel');
@@ -95,8 +96,6 @@ class App extends PureComponent {
         validCard = false;
       }
     }
-
-    return ;
   }
 
   render() {
