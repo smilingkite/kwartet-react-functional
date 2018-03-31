@@ -60,13 +60,13 @@ ul.hand, ul.kwartetten {
   }
 }
 
-.true li.hasChanged {
+.hasTurn li.hasChanged {
   -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
   -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
   box-shadow: 0px 0px 38px 5px $vivid-tangerine;
 }
 
-.false .kaarten ul.hand li.kaart {
+.notHasTurn .kaarten ul.hand li.kaart {
   color: $transparent; 
   background: repeating-linear-gradient(
     45deg,
