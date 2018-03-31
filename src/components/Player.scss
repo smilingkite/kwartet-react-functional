@@ -26,17 +26,17 @@ ul.hand, ul.kwartetten {
   margin: 1em 0;
   min-height: 1em;
 
-  .example-enter {
+  .kwartet-enter {
     opacity: 0.01;
   }
-  .example-enter.example-enter-active {
+  .kwartet-enter.kwartet-enter-active {
     opacity: 1;
     transition: opacity 1000ms ease-in;
   }
-  .example-leave {
+  .kwartet-leave {
     opacity: 1;
   }
-  .example-leave.example-leave-active {
+  .kwartet-leave.kwartet-leave-active {
     opacity: 0.01;
     transition: opacity 3000ms ease-in;
   }

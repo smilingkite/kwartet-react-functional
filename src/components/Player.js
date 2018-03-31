@@ -25,7 +25,7 @@ class PlayerComponent extends React.Component{
           <p>Kwartetten</p>
           <CSSTransitionGroup
             component="ul" className="kwartetten"
-            transitionName="example"
+            transitionName="kwartet"
             transitionEnterTimeout={1000}
             transitionLeaveTimeout={1000}>
             {
