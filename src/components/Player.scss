@@ -60,16 +60,20 @@ ul.hand, ul.kwartetten {
   li.hasChanged.kwartet {
     padding: 1em 10px;
     font-size: 1em;
-    -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-    -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-    box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+    animation-duration: 3s;
+    animation-name: boxShadowAnimation;
+    -webkit-box-shadow: 0px 0px 8px 2px $transparent-vivid-tangerine;
+    -moz-box-shadow: 0px 0px 8px 2px $transparent-vivid-tangerine;
+    box-shadow: 0px 0px 8px 2px $transparent-vivid-tangerine;
   }
 }
 
 .hasTurn li.hasChanged {
-  -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-  -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
-  box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+  animation-duration: 3s;
+  animation-name: boxShadowAnimation;
+  -webkit-box-shadow: 0px 0px 8px 2px $transparent-vivid-tangerine;
+  -moz-box-shadow: 0px 0px 8px 2px $transparent-vivid-tangerine;
+  box-shadow: 0px 0px 8px 2px $transparent-vivid-tangerine;
 }
 
 .notHasTurn .kaarten ul.hand li.kaart {
@@ -81,6 +85,19 @@ ul.hand, ul.kwartetten {
     transparentize($color: $black, $amount: 0.4) 10px,
     transparentize($color: $black, $amount: 0.1) 10px
   )
+}
+
+@keyframes boxShadowAnimation {
+  50% {
+    -webkit-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+    -moz-box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+    box-shadow: 0px 0px 38px 5px $vivid-tangerine;
+  }
+  // 90% {
+  //   -webkit-box-shadow: 0px 0px 10px 2px $vivid-tangerine;
+  //   -moz-box-shadow: 0px 0px 10px 2px $vivid-tangerine;
+  //   box-shadow: 0px 0px 10px 2px $vivid-tangerine;
+  // }
 }
 
 @media only screen and (max-width: 650px) {
