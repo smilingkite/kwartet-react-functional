@@ -23,9 +23,7 @@ class App extends PureComponent {
   changeMessage = (message, extra) => {
     let MessageObjectArray = messages.filter((m) => m.key === message)
     let newMessage = MessageObjectArray[0].value.replace("XXX", extra);
-    console.log(extra)
-    console.log(newMessage)
-    this.props.dispatch({type: SELECT_MESSAGE, payload: newMessage})
+    setTimeout(()=> {this.props.dispatch({type: SELECT_MESSAGE, payload: newMessage})},500) 
   }
   
   selectHand = (deck, handNo) => deck.filter(card => card.deckNo === handNo)

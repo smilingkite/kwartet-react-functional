@@ -49,10 +49,13 @@ ul.hand, ul.kwartetten {
     padding: 1em 10px;
     margin-right: 3px;
     margin-bottom: 3px;
-    -webkit-transition: 1s;
-    -moz-transition:1s;
-    -o-transition:1s;
-    transition:1s;
+
+    -webkit-transition-property: -webkit-box-shadow;
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration:1s;
+    -o-transition-duration:1s;
+    transition-property: box-shadow;
+    transition-duration: 1s;
   }
   li.hasChanged.kwartet {
     padding: 1em 10px;
